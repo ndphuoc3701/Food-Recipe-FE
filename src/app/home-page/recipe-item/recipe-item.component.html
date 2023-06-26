@@ -1,0 +1,18 @@
+<img style="max-width: 100%;
+height: auto;" src={{recipe.img}}>
+<div>
+  <div class="float-start">{{recipe.name}}</div>
+  <div style="cursor: pointer;" (click)="clickFavorite()" (mouseenter)="mouseEnterFavorite()"
+    (mouseleave)="mouseLeaveFavorite()" class="float-end text-danger"
+    [ngClass]="{'bi-heart-fill':recipe.favorite||favoriteHover, 'bi-heart':!recipe.favorite&&!favoriteHover}">
+  </div>
+  <div style="clear: both;">
+    <ng-container *ngFor="let item of [0,1,2,3,4]">
+      <i [ngClass]="{'bi-star-fill':recipe.numStar>=item+0.75,'bi-star-half':recipe.numStar<item+0.75&&recipe.numStar>=item+0.25,'bi-star':recipe.numStar<item+0.25}"
+        class="bi text-warning"></i>
+    </ng-container>
+    <div class="float-end"
+      [innerText]="(recipe.numEvaluate>1000?toFix(recipe.numEvaluate)+'k': recipe.numEvaluate)+' Đánh giá'">
+    </div>
+  </div>
+</div>

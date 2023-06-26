@@ -1,0 +1,66 @@
+<div class="clearfix">
+  <div class="float-start">
+    <img style="max-width: 100%;" class="me-4 float-start" src={{recipeDetail.recipe.img}}>
+  </div>
+  <div class="me-2">
+    <h1>
+      {{recipeDetail.recipe.name}}
+    </h1>
+    <div style="width: 100%;">
+      <ng-container *ngFor="let item of [0,1,2,3,4]">
+        <i [ngClass]="{'bi-star-fill':recipeDetail.recipe.numStar>=item+0.75,'bi-star-half':recipeDetail.recipe.numStar<item+0.75&&recipeDetail.recipe.numStar>=item+0.25,'bi-star':recipeDetail.recipe.numStar<item+0.25}"
+          class="bi text-warning" style="font-size: larger;"></i>
+      </ng-container>
+      <div style="float:right" class="mb-3"
+        [innerText]="(recipeDetail.recipe.numEvaluate>1000?toFix(recipeDetail.recipe.numEvaluate)+'k': recipeDetail.recipe.numEvaluate)+' Đánh giá'">
+      </div>
+    </div>
+    <div style="clear:right ;cursor: pointer;font-size: larger;" (click)="clickFavorite()"
+      (mouseenter)="mouseEnterFavorite()" (mouseleave)="mouseLeaveFavorite()" class="float-start text-danger"
+      [ngClass]="{'bi-heart-fill':recipeDetail.recipe.favorite||favoriteHover, 'bi-heart':!recipeDetail.recipe.favorite&&!favoriteHover}">
+    </div>
+    <div class="float-end">{{recipeDetail.numLike}} Lượt thích</div>
+    <div style="clear:right;visibility: hidden;">lol</div>
+
+    <div style="margin-top: -10px;" class="me-1 mb-4">Đăng ngày: {{recipeDetail.createdDate}}</div>
+
+    <div style="margin-left:55%" class="border border-warning rounded-3 position-relative p-3">
+      <div style="position: absolute; left:10px;top:-20px">
+        <img src="/assets/icon/cooker.png" class="bg-light me-2" style="max-width: 10%;">
+      </div>
+      <div>
+        <img src={{recipeDetail.userInfo.img}} class="me-4  mb-3" style="border-radius:50%; max-width: 20%;">
+        <div style="display: inline-block;">{{recipeDetail.userInfo.name}}</div>
+      </div>
+      <div class="mx-auto">
+        <img src="/assets/icon/cookLevel.png" class="me-2" style="max-width: 10%;">
+        <div class="me-1" style="display: inline-block;">Điểm đầu bếp: </div>
+        <ng-container *ngFor="let item of [0,1,2,3,4]">
+          <i [ngClass]="{'bi-star-fill':recipeDetail.userInfo.cookLevel>=item+0.75,'bi-star-half':recipeDetail.userInfo.cookLevel<item+0.75&&recipeDetail.userInfo.cookLevel>=item+0.25,'bi-star':recipeDetail.userInfo.cookLevel<item+0.25}"
+            class="bi text-warning" style="font-size: larger;"></i>
+        </ng-container>
+      </div>
+      <div class="mt-3">
+        <img src="/assets/icon/evaluateLevel.png" class="me-2" style="max-width: 10%;">
+        <div class="me-1" style="display: inline-block;">Điểm đánh giá: </div>
+        <ng-container *ngFor="let item of [0,1,2,3,4]">
+          <i [ngClass]="{'bi-star-fill':recipeDetail.userInfo.evaluateLevel>=item+0.75,'bi-star-half':recipeDetail.userInfo.evaluateLevel<item+0.75&&recipeDetail.userInfo.evaluateLevel>=item+0.25,'bi-star':recipeDetail.userInfo.evaluateLevel<item+0.25}"
+            class="bi text-warning" style="font-size: larger;"></i>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+<h2 class="mt-5 mb-3">Nguyên liệu:</h2>
+<ul>
+  <li *ngFor="let item of recipeDetail.ingredients">
+    {{item.quantity +' '+ item.name}}
+  </li>
+</ul>
+
+<h2 class="mt-5 mb-3">Hướng dẫn chế biến:</h2>
+<ol>
+  <li *ngFor="let item of recipeDetail.steps">
+    {{item}}
+  </li>
+</ol>

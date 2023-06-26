@@ -1,0 +1,56 @@
+<div style="width:40%;" class="m-auto mt-5 mb-3 input-group">
+  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
+    aria-describedby="basic-addon2">
+  <div class="input-group-append">
+    <button style="background-color: #ffe127;" class="btn" type="button"><i class="bi bi-search"></i></button>
+  </div>
+</div>
+<div class="d-flex flex-row justify-content-center mb-5">
+  <div class="me-3">Nguyên liệu chính:</div>
+  <div style="background-color: #ffe127; border-radius: 10px; cursor: pointer;" class="me-3 px-3">Heo</div>
+  <div style="background-color: #ffe127; border-radius: 10px; cursor: pointer;" class="me-3 px-3">Bò</div>
+  <div style="background-color: #ffe127; border-radius: 10px; cursor: pointer;" class="me-3 px-3">Gà</div>
+  <div style="background-color: #ffe127; border-radius: 10px; cursor: pointer;" class="me-3 px-3">Cá</div>
+
+</div>
+<div class="grid-container container">
+
+  <app-recipe-item [recipe]="item" *ngFor="let item of recipes"></app-recipe-item>
+  <!-- <app-recipe-item></app-recipe-item>
+  <app-recipe-item></app-recipe-item>
+  <app-recipe-item></app-recipe-item> -->
+</div>
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" [ngClass]="{'disabled':selectedPage==1}">
+      <a [routerLink]="['/']" [queryParams]="{page:selectedPage-1}" style="color: black;" class="page-link" href="#"
+        aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item">
+      <a [routerLink]="['/']" [queryParams]="{page:page1()}"
+        [ngStyle]="{'background-color':selectedPage==1?'#ffe127':''}" style="color: black;" class="page-link">
+        {{page1()}}
+      </a>
+    </li>
+    <li *ngIf="numPage>1" class="page-item">
+      <a [routerLink]="['/']" [queryParams]="{page:page2()}"
+        [ngStyle]="{'background-color':selectedPage!=1&&selectedPage!=numPage?'#ffe127':''}" style="color: black;"
+        class="page-link">{{page2()}}
+      </a>
+    </li>
+    <li *ngIf="numPage>2" class="page-item">
+      <a [routerLink]="['/']" [queryParams]="{page:page3()}"
+        [ngStyle]="{'background-color':selectedPage==numPage?'#ffe127':''}" style="color: black;"
+        class="page-link">{{page3()}}
+      </a>
+    </li>
+    <li class="page-item" [ngClass]="{'disabled':selectedPage==numPage}">
+      <a [routerLink]="['/']" [queryParams]="{page:selectedPage+1}" style="color: black;" class="page-link" href="#"
+        aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
