@@ -5,5 +5,7 @@ export class Recipe {
     public favorite: boolean,
     public numStar: number,
     public numEvaluate: number,
+    public numLike: number,
+    public createdDate: string
   ) { }
 }

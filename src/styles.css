@@ -1,1 +1,52 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.custom-modalbox .mat-mdc-dialog-title {
+  color: #c39d14 !important;
+}
+
+.custom-modalbox .mdc-dialog__content {
+  color: #c39d14 !important;
+}
+
+.custom-modalbox .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
+  color: #c39d14 !important;
+
+
+  /* color: black !important; */
+}
+
+.custom-modalbox .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: white;
+}
+
+.custom-modalbox .mdc-text-field--filled .mdc-line-ripple::after {
+  border-bottom-color: #c39d14;
+}
+
+.custom-modalbox .border-danger .mdc-text-field--filled .mdc-line-ripple::after {
+  border-bottom-color: red;
+}
+
+.custom-modalbox .border-danger .mdc-line-ripple::before {
+  border-bottom-color: red
+}
+
+.custom-modalbox .border-danger .mdc-text-field--filled:not(.mdc-text-field--disabled):hover .mdc-line-ripple::before {
+  border-bottom-color: red
+}
+
+.custom-modalbox .mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}

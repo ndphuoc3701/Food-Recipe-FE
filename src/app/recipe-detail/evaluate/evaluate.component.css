@@ -1,0 +1,15 @@
+.bi-x:hover {
+  background-color: black !important;
+  cursor: pointer;
+}
+
+.response:hover {
+  color: #b48b0e;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.like:hover {
+  color: #ffc107;
+  cursor: pointer;
+}

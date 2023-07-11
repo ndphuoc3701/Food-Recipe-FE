@@ -1,0 +1,36 @@
+.center {
+  position: absolute;
+  left: 50%;
+  -ms-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+}
+
+.button-form {
+  color: #c39d14;
+  border: 2px solid #c39d14;
+}
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.image:hover {
+  cursor: pointer;
+  background-color: #e4dda7;
+}
+
+.bi-x:hover {
+  background-color: black !important;
+  cursor: pointer;
+}
+
+.dialog-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

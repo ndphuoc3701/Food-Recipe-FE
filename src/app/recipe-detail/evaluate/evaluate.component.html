@@ -1,4 +1,99 @@
 <h2> Đánh giá món ăn</h2>
-<div class="border rounded-5 p-3">
-  Bạn nghĩ như thế nào sau khi thưởng thức món ăn này, hãy cho Yum Yum biết nhé!
+<form #evaluateForm="ngForm" style="background-color: #ffeda4;" class="rounded-3 p-3 mb-3 " (submit)="submit()">
+  <div class="text-center mb-3" style="font-size:xx-large">
+    <ng-container *ngFor="let item of [0,1,2,3,4]">
+      <i (mouseenter)="hoverStar(item)" (mouseleave)="unhoverStar()"
+        [ngClass]="{'bi-star-fill':item<=starHovered,'bi-star':item>starHovered}" class="bi text-warning"
+        style="cursor: pointer"></i>
+    </ng-container>
+  </div>
+  <div class="form-group mb-2">
+    <textarea style="height: 5em; resize: none;"
+      placeholder="Bạn nghĩ như thế nào sau khi thưởng thức món ăn này, hãy cho Yum Yum biết nhé!" type="text"
+      class="form-control" #evaluationInput></textarea>
+  </div>
+  <div *ngIf="imageUrls.length>0" class="d-flex">
+    <div *ngFor="let image of this.imageUrls;let imageIndex =index" class="me-1 position-relative">
+      <img src={{image}} class="" style="width: 5em;height: 5em;">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" (click)="removeImage(imageIndex)"
+        class="text-white bi bi-x position-absolute"
+        style="top:0;right:0;width: 1.5em;height:1.5em;background-color: dimgray;" viewBox="0 0 16 16">
+        <path
+          d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+      </svg>
+    </div>
+  </div>
+  <div class="d-flex flex-row-reverse">
+    <button type="submit" style="width: 15%;" class="rounded-1 ms-1 bg-warning border-warning text-white">Đánh
+      giá</button>
+    <button (click)="uploadImage()" style="width: 15%;" class="bg-white rounded-1 text-warning border-warning">Thêm
+      ảnh</button>
+  </div>
+</form>
+<div class="container rounded-3" style="background-color: #f6f0d6;">
+  <div *ngFor="let evaluation of communityEvaluation" class="border-bottom py-2">
+    <div class="d-flex">
+      <div style="width: 5%; margin-right: 1%;">
+        <img src={{evaluation.user.img}} style=" border-radius: 50%;width:100%">
+      </div>
+      <div style="font-size: smaller;">
+        <div>{{evaluation.user.name}}</div>
+        <ng-container *ngFor="let item of [0,1,2,3,4]">
+          <i [ngClass]="{'bi-star-fill':evaluation.numStar>=item+0.75,'bi-star-half':evaluation.numStar<item+0.75&&evaluation.numStar>=item+0.25,'bi-star':evaluation.numStar<item+0.25}"
+            class="bi text-warning" style="font-size: larger;"></i>
+        </ng-container>
+        <div style="color:#c6c6c6">{{evaluation.createdDate}}</div>
+      </div>
+    </div>
+    <div style="margin-left:6%">
+      <div *ngIf="imageUrls.length>0" class="d-flex">
+        <div *ngFor="let item of evaluation.imageUrls" class="me-1">
+          <img src={{item}} class="" style="width: 5em;height: 5em;">
+        </div>
+      </div>
+      <div class="my-2">{{evaluation.content}}</div>
+      <div class="d-flex" style="font-size: smaller;align-items: center;">
+        <i (click)="clickLike(evaluation)" class="fs-5 fa fa-thumbs-up like"
+          [ngClass]="{'text-warning':evaluation.isLike}"></i>
+        <div>{{evaluation.numLike}}</div>
+        <i (click)="clickDislike(evaluation)" class="fs-5 ms-2 fa fa-thumbs-down like"
+          [ngClass]="{'text-warning':evaluation.isLike==false}"></i>
+        <div>{{evaluation.numDislike}}</div>
+      </div>
+    </div>
+  </div>
 </div>
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center mt-2">
+    <li class="page-item" [ngClass]="{'disabled':selectedPage==1}">
+      <a [routerLink]="['/recipes/',recipeId]" [queryParams]="{page:selectedPage-1}" style="color: black;"
+        class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item">
+      <a [routerLink]="['/recipes/',recipeId]" [queryParams]="{page:page1()}"
+        [ngStyle]="{'background-color':selectedPage==1?'#ffe127':''}" style="color: black;" class="page-link">
+        {{page1()}}
+      </a>
+    </li>
+    <li *ngIf="numPage>1" class="page-item">
+      <a [routerLink]="['/recipes/',recipeId]" [queryParams]="{page:page2()}"
+        [ngStyle]="{'background-color':selectedPage!=1&&selectedPage!=numPage?'#ffe127':''}" style="color: black;"
+        class="page-link">{{page2()}}
+      </a>
+    </li>
+    <li *ngIf="numPage>2" class="page-item">
+      <a [routerLink]="['/recipes/',recipeId]" [queryParams]="{page:page3()}"
+        [ngStyle]="{'background-color':selectedPage==numPage?'#ffe127':''}" style="color: black;"
+        class="page-link">{{page3()}}
+      </a>
+    </li>
+    <li class="page-item" [ngClass]="{'disabled':selectedPage==numPage}">
+      <a [routerLink]="['/recipes/',recipeId]" [queryParams]="{page:selectedPage+1}" style="color: black;"
+        class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>

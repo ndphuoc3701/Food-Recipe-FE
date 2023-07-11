@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-sm-4">
+    <img src="{{recipe.img}}" class="w-100 h-100">
+  </div>
+  <div class="col-sm-8">
+    <div class="row">
+      <div class="col h1">
+        {{recipe.name}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <ng-container *ngFor="let item of [0,1,2,3,4]">
+          <i [ngClass]="{'bi-star-fill':recipe.numStar>=item+0.75,'bi-star-half':recipe.numStar<item+0.75&&recipe.numStar>=item+0.25,'bi-star':recipe.numStar<item+0.25}"
+            class="bi text-warning" style="font-size: larger;"></i>
+        </ng-container>
+      </div>
+      <div class="col-sm-6 my-auto text-end">
+        {{recipe.numEvaluate>1000?toFix(recipe.numEvaluate)+'k':
+        recipe.numEvaluate}} Đánh giá</div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-sm-6">
+        <i role="button" class="text-danger" style="font-size: larger;" (click)="clickFavorite()"
+          (mouseenter)="mouseEnterFavorite()" (mouseleave)="mouseLeaveFavorite()" [ngClass]="{'bi-heart-fill':recipe.favorite||favoriteHover,
+          'bi-heart':!recipe.favorite&&!favoriteHover}">
+        </i>
+      </div>
+      <div class="col-sm-6 text-end">{{recipe.numLike}} Lượt thích</div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-sm-12">
+        Đăng ngày: {{recipe.createdDate}}
+      </div>
+    </div>
+  </div>
+</div>

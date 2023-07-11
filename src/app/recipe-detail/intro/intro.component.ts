@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Recipe } from 'src/app/model/recipe';
-import { RecipeDetail } from 'src/app/model/recipe-detail';
+import { RecipeDetail } from 'src/app/model/recipeDetail';
 
 @Component({
   selector: 'app-intro',

@@ -15,15 +15,14 @@ export class HomePageComponent implements OnInit {
         if (isNaN(this.selectedPage)) {
           this.selectedPage = 1;
         }
-      }
-      );
+      });
   }
   recipes: Recipe[] = [
-    new Recipe("Bò hầm", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", true, 4.25, 1002),
-    new Recipe("Heo hầm", "/assets/recipe/z4459772476120_e4ad895886890eebd49855cbfe6baa39.jpg", false, 3.25, 1102),
-    new Recipe("Gà hầm", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", false, 4.15, 923),
-    new Recipe("Vịt hầm", "/assets/recipe/z4459772476120_e4ad895886890eebd49855cbfe6baa39.jpg", true, 4.75, 75),
-    new Recipe("Vịt hầm", "/assets/recipe/z4459772476120_e4ad895886890eebd49855cbfe6baa39.jpg", true, 3.65, 19021),
+    new Recipe("Bò hầm", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", true, 4.25, 1002, 50, ''),
+    new Recipe("Heo hầm", "/assets/recipe/z4459772476120_e4ad895886890eebd49855cbfe6baa39.jpg", false, 3.25, 1102, 50, ''),
+    new Recipe("Gà hầm", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", false, 4.15, 923, 50, ''),
+    new Recipe("Vịt hầm", "/assets/recipe/z4459772476120_e4ad895886890eebd49855cbfe6baa39.jpg", true, 4.75, 75, 50, ''),
+    new Recipe("Vịt hầm", "/assets/recipe/z4459772476120_e4ad895886890eebd49855cbfe6baa39.jpg", true, 3.65, 19021, 50, ''),
 
   ]
 
