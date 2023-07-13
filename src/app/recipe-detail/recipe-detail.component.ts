@@ -16,7 +16,7 @@ export class RecipeDetailComponent implements OnInit {
   recipeDetail!: RecipeDetail;
 
   ngOnInit(): void {
-    let recipe = new Recipe("Bò hầm", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", true, 4.25, 1002, 50, "20/5/2023");
+    let recipe = new Recipe(1, "Bò hầm", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", true, 4.25, 1002, 50, "20/5/2023");
     let userInfo = new UserInfo("Nguyen Duy Phuoc", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", 4.1, 3.5);
     let ingredients = [new Ingredient("Chanh", "1 trái"),
     new Ingredient("Bò", "5kg")]

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Recipe } from '../model/recipe';
 
 @Component({
@@ -7,7 +7,8 @@ import { Recipe } from '../model/recipe';
   styleUrls: ['./common-recipe-list.component.css']
 })
 export class CommonRecipeListComponent {
-  recipe: Recipe = new Recipe("Bò hầm", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", true, 4.25, 1002, 50, "20/5/2023");
+  @Input() recipe: Recipe = new Recipe(1, "Bò hầm", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", true, 4.25, 1002, 50, "20/5/2023");
+  // recipe: Recipe = new Recipe(1, "Bò hầm", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", true, 4.25, 1002, 50, "20/5/2023");
   favoriteHover: boolean = false;
 
   toFix(n: number): string {

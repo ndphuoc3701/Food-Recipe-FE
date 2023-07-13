@@ -1,3 +1,7 @@
 <button mat-raised-button (click)="openDialog()">Pick one</button>
 
-<app-common-recipe-list></app-common-recipe-list>
+<div *ngFor="let recipe of recipes" class="row border border-warning rounded-3 p-2 mb-2">
+  <div class="col-sm-12 ">
+    <app-common-recipe-list [recipe]="recipe"></app-common-recipe-list>
+  </div>
+</div>
