@@ -29,7 +29,7 @@ export class RecipeShareFormComponent implements OnInit {
     image: true
   }
 
-  constructor(private fb: FormBuilder, private dialog: MatDialog, private dialogRef: MatDialogRef<RecipeShareFormComponent>,) { }
+  constructor(private dialog: MatDialog, private dialogRef: MatDialogRef<RecipeShareFormComponent>,) { }
   ngOnInit(): void {
     // this.form = this.fb.group({
     //   name: this.recipe.name,
@@ -54,8 +54,6 @@ export class RecipeShareFormComponent implements OnInit {
     }
     this.validateImage();
   }
-
-
 
   validateName() {
     if (this.recipe.name == '') {
@@ -93,7 +91,7 @@ export class RecipeShareFormComponent implements OnInit {
 
   addInstruction() {
     this.recipe.instructions.push(new Instruction('', []));
-    this.validate.ingredients.push(true);
+    this.validate.instructions.push(true);
   }
 
   removeInstruction(instructionIndex: number) {
@@ -102,7 +100,7 @@ export class RecipeShareFormComponent implements OnInit {
 
   addInstructionImage(instructionIndex: number) {
     let lengthImage = this.recipe.instructions[instructionIndex].images.length
-    if (lengthImage > 0) {
+    if (lengthImage > 4) {
       let dialogRef = this.dialog.open(DialogComponent, {
         width: '20%',
         autoFocus: false

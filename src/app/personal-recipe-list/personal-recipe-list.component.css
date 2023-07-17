@@ -1,0 +1,26 @@
+/* .item:hover {
+  background-color: #fdef98;
+} */
+
+.item:hover {
+  background-color: #fff7c4;
+}
+
+
+.item {
+  border: 5px solid #fff7c4;
+  border-radius: 20px;
+}
+
+.edit-item {
+  border-radius: 10px;
+  cursor: default;
+}
+
+/* 
+.edit-item:hover {
+  background-color: #fff7e1;
+} */
+.edit-item:hover {
+  background-color: #fbdc88;
+}

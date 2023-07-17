@@ -24,7 +24,7 @@
     </div>
   </div>
 
-  <div class="mt-2" style="font-weight: 500; font-size: large;">Nguyên liệu</div>
+  <div class="mt-4" style="font-weight: 500; font-size: large;">Nguyên liệu</div>
   <div class="row rounded-3 py-2 mx-3 my-2" [ngClass]="{'border border-danger':!validate.ingredients[ingredientIndex]}"
     *ngFor="let ingredient of recipe.ingredients; let ingredientIndex=index" style="background-color: #eeeebe;">
     <div class="col-sm-1 my-auto">
@@ -55,16 +55,16 @@
       <div class="col-sm-11 text-danger" style="font-size: x-small; padding: 0 16px;">{{EMPTY_MESSAGE_ERROR}}
       </div>
     </div>
-  </div>
-  <div class="position-relative">
-    <button mat-raised-button class="button-form center" (click)="addIngredient()"><strong>+</strong>
-      Nguyên liệu
-    </button>
+    <div class="position-relative">
+      <button mat-raised-button class="button-form center mt-3" (click)="addIngredient()"><strong>+</strong>
+        Nguyên liệu
+      </button>
+    </div>
   </div>
 
-  <div style="font-weight: 500; font-size: large;" class="mt-5">Hướng dẫn chế biến</div>
+  <div style="font-weight: 500; font-size: large; margin-top: 4rem;">Hướng dẫn chế biến</div>
   <div class="row rounded-3 py-2 mx-3 my-2"
-    [ngClass]="{'border border-danger':!validate.instructions[instructionIndex]}"
+    [ngClass]="{'border border-danger':validate.instructions[instructionIndex]==false}"
     *ngFor="let instruction of recipe.instructions; let instructionIndex=index" style="background-color: #eeeebe;">
     <div class="col-sm-1 my-auto">
       {{instructionIndex+1}}.
@@ -101,8 +101,8 @@
         </svg>
       </div>
     </div>
-    <div *ngIf="!validate.instructions[instructionIndex]" class="row">
-      <div class="col-sm-1"></div>
+    <div *ngIf="validate.instructions[instructionIndex]==false" class="row">
+      <div class="col-sm-1">{{'cc'+validate.instructions[instructionIndex]}}</div>
       <div class="col-sm-11 text-danger" style="font-size: x-small; padding: 0 16px;">{{EMPTY_MESSAGE_ERROR}}
       </div>
     </div>
@@ -112,7 +112,7 @@
       Bước thực hiện
     </button>
   </div>
-  <div style="font-weight: 500; font-size: large;" class="mt-5">Ảnh đại diện của món ăn</div>
+  <div style="font-weight: 500; font-size: large;; margin-top: 4rem;">Ảnh đại diện của món ăn</div>
   <div class="position-relative image mx-auto" style="width: 10em; height: 10em; ">
     <img *ngIf="recipe.image!=''" src={{recipe.image}} class="w-100 h-100 vertical-center">
     <svg *ngIf="recipe.image!=''" xmlns="http://www.w3.org/2000/svg" fill="currentColor" (click)="recipe.image=''"
@@ -132,7 +132,8 @@
 
 
 </mat-dialog-content>
-<mat-dialog-actions style="padding-right: 25px;">
-  <button class="mx-auto rounded-1 bg-warning border-warning text-white" (click)="onSubmit()"
-    mat-raised-button>Submit</button>
+<mat-dialog-actions style="padding-right: 25px;" class="justify-content-end">
+  <button class="rounded-1 bg-warning border-warning text-white" (click)="onSubmit()" mat-raised-button>Submit</button>
+  <button class="rounded-1 text-white" mat-dialog-close style="background-color: #b9b9b9;"
+    mat-raised-button>Huỷ</button>
 </mat-dialog-actions>

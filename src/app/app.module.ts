@@ -19,9 +19,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { RecipeShareFormComponent } from './recipe-share-form/recipe-share-form.component';
-import { YourRecipeComponent } from './your-recipe/your-recipe.component';
-import { CommonRecipeListComponent } from './common-recipe-list/common-recipe-list.component';
+import { YourRecipeComponent } from './personal-recipe-list/your-recipe/your-recipe.component';
+import { CommonRecipeListComponent } from './personal-recipe-list/common-recipe-list/common-recipe-list.component';
 import { PersonalRecipeListComponent } from './personal-recipe-list/personal-recipe-list.component';
+import { LearntRecipeComponent } from './personal-recipe-list/learnt-recipe/learnt-recipe.component';
+import { ScheduleRecipeComponent } from './personal-recipe-list/schedule-recipe/schedule-recipe.component';
+import { EditPersonalRecipeComponent } from './edit-personal-recipe/edit-personal-recipe.component';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +42,11 @@ import { PersonalRecipeListComponent } from './personal-recipe-list/personal-rec
     RecipeShareFormComponent,
     YourRecipeComponent,
     CommonRecipeListComponent,
-    PersonalRecipeListComponent
+    PersonalRecipeListComponent,
+    LearntRecipeComponent,
+    ScheduleRecipeComponent,
+    EditPersonalRecipeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -49,10 +59,14 @@ import { PersonalRecipeListComponent } from './personal-recipe-list/personal-rec
     MatIconModule,
     MatButtonToggleModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    MatDatepickerModule,
+    NgxMatNativeDateModule
+
   ],
   providers: [
-
   ],
   bootstrap: [AppComponent]
 })

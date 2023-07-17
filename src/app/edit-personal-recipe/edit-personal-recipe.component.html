@@ -1,0 +1,21 @@
+<div mat-dialog-title class="dialog-title pe-0">
+  <div class="fs-3">{{data.scheduledDate==null?'Chỉnh sửa công thức đã học': 'Chỉnh sửa công thức đã lên lịch'}}</div>
+</div>
+<mat-dialog-content>
+  <mat-form-field *ngIf="data.scheduledDate!=null" class="w-100 mb-1">
+    <mat-label>Thời gian lên lịch</mat-label>
+    <input matNativeControl type="datetime-local" [(ngModel)]="data.scheduledDate">
+  </mat-form-field>
+
+  <mat-form-field class="w-100">
+    <mat-label>Ghi chú</mat-label>
+    <textarea matInput [(ngModel)]="data.note"></textarea>
+  </mat-form-field>
+
+</mat-dialog-content>
+<mat-dialog-actions style="padding-right: 25px;" class="justify-content-end">
+  <button class="rounded-1 bg-warning border-warning text-white" [mat-dialog-close]="data"
+    mat-raised-button>Lưu</button>
+  <button class="rounded-1 text-white" mat-dialog-close style="background-color: #b9b9b9;"
+    mat-raised-button>Huỷ</button>
+</mat-dialog-actions>

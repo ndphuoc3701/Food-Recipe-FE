@@ -1,0 +1,42 @@
+<div style="background-image: url('assets/background.jpg'); background-repeat: no-repeat; background-size: cover;"
+  class="w-100 h-100">
+  <div class="position-relative pt-3 pb-2" style="left: 50%;top:40%;background-color: white; width: 20%;">
+    <div mat-dialog-title>
+      <div class="fs-3 text-center mb-2">{{isLogin?'Đăng nhập':'Đăng ký'}}</div>
+    </div>
+    <div class="mx-auto" style="width: 80%;">
+      <mat-dialog-content>
+        <mat-form-field class="mb-1" style="width: 100%;">
+          <mat-label>Username</mat-label>
+          <input matInput [(ngModel)]="username">
+        </mat-form-field>
+        <mat-form-field style="width: 100%;">
+          <mat-label>Password</mat-label>
+          <input matInput [(ngModel)]="password">
+        </mat-form-field>
+      </mat-dialog-content>
+      <div class="position-relative image mx-auto" style="width: 10em; height: 10em; ">
+        <img *ngIf="userImage!=''" src={{userImage}} class="w-100 h-100 vertical-center">
+        <svg *ngIf="userImage!=''" xmlns="http://www.w3.org/2000/svg" fill="currentColor" (click)="userImage=''"
+          class="text-white bi bi-x position-absolute"
+          style="top:0;right:0;width: 1.5em;height:1.5em;background-color: dimgray;" viewBox="0 0 16 16">
+          <path
+            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+        </svg>
+        <div *ngIf="userImage==''" (click)="addUserImage()" style="border-style: dotted;"
+          [ngClass]="{'border-danger':!validate.userImage}" class="w-100 h-100">
+          <i class="bi bi-camera vertical-center" style=" font-size: 5em;"></i>
+        </div>
+        <div *ngIf="!validate.userImage" class="text-danger w-100 text-center" style="font-size: x-small;">
+          {{EMPTY_IMAGE_MESSAGE_ERROR}}
+        </div>
+      </div>
+      <div class="text-center" style="font-size: small; margin-top: -1rem;">
+        Chưa có tài khoản? <span class="text-warning">Đăng ký ngay</span>
+      </div>
+      <mat-dialog-actions class="justify-content-center d-flex mt-1">
+        <button class="rounded-1 bg-warning border-warning text-white" mat-raised-button>Login</button>
+      </mat-dialog-actions>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,12 @@
-<div style="background-color: #dedbdb;">
-  <div class="m-auto bg-white p-3" style="width: 35%;">
+<div style="background-color: #dedbdb; height: 100%;">
+  <div class="m-auto bg-white p-3" style="width: 35%; height: 100%;">
     <div class="container">
+      <!-- <div [routerLink]="['/recipes/'+recipe.id]" *ngFor="let recipe of recipes" class="row p-2 mb-2 item"
+        style="cursor: pointer;">
+        <div class="col-sm-12 ">
+          <app-common-recipe-list [listType]="listType" [recipe]="recipe"></app-common-recipe-list>
+        </div>
+      </div> -->
       <router-outlet></router-outlet>
     </div>
   </div>

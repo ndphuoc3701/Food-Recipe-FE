@@ -1,26 +1,35 @@
 <div class="row">
-  <div class="col-sm-4">
+  <div class="col-sm-4 ps-0">
     <img src="{{recipe.img}}" class="w-100 h-100">
   </div>
   <div class="col-sm-8">
     <div class="row">
-      <div class="col h1">
+      <div class="" [ngClass]=" (isClock?'col-sm-10':'col-sm-12')+' h1 p-0'">
         {{recipe.name}}
+      </div>
+      <div *ngIf="isClock" style="border-radius: 50%; width: 45px; height: 45px;right:0"
+        class="col-sm-2 p-0 position-relative bg-warning ms-auto">
+        <i class="clock bi bi-alarm position-absolute" style="  margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);font-size: 30px;"></i>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-6 ps-0">
         <ng-container *ngFor="let item of [0,1,2,3,4]">
           <i [ngClass]="{'bi-star-fill':recipe.numStar>=item+0.75,'bi-star-half':recipe.numStar<item+0.75&&recipe.numStar>=item+0.25,'bi-star':recipe.numStar<item+0.25}"
             class="bi text-warning" style="font-size: larger;"></i>
         </ng-container>
       </div>
-      <div class="col-sm-6 my-auto text-end">
+      <div class="col-sm-6 text-end">
         {{recipe.numEvaluate>1000?toFix(recipe.numEvaluate)+'k':
         recipe.numEvaluate}} Đánh giá</div>
     </div>
     <div class="row mt-2">
-      <div class="col-sm-6">
+      <div class="col-sm-6 ps-0">
         <i role="button" class="text-danger" style="font-size: larger;" (click)="clickFavorite()"
           (mouseenter)="mouseEnterFavorite()" (mouseleave)="mouseLeaveFavorite()" [ngClass]="{'bi-heart-fill':recipe.favorite||favoriteHover,
           'bi-heart':!recipe.favorite&&!favoriteHover}">
@@ -29,8 +38,8 @@
       <div class="col-sm-6 text-end">{{recipe.numLike}} Lượt thích</div>
     </div>
     <div class="row mt-2">
-      <div class="col-sm-12">
-        Đăng ngày: {{recipe.createdDate}}
+      <div class="col-sm-12 ps-0">
+        {{'Đăng ngày: '+recipe.createdDate}}
       </div>
     </div>
   </div>
