@@ -6,7 +6,7 @@ export class Recipe {
     public favorite: boolean,
     public numStar: number,
     public numEvaluate: number,
-    public numLike: number,
+    public numFavorite: number,
     public createdDate?: string,
     public learntDate?: string,
     public scheduledDate?: string

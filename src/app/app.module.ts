@@ -28,6 +28,7 @@ import { EditPersonalRecipeComponent } from './edit-personal-recipe/edit-persona
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { LoginComponent } from './login/login.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import { LoginComponent } from './login/login.component';
     LearntRecipeComponent,
     ScheduleRecipeComponent,
     EditPersonalRecipeComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,8 +64,8 @@ import { LoginComponent } from './login/login.component';
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
     MatDatepickerModule,
-    NgxMatNativeDateModule
-
+    NgxMatNativeDateModule,
+    HttpClientModule
   ],
   providers: [
   ],

@@ -18,6 +18,9 @@ const routes: Routes = [
     path: 'login', component: LoginComponent
   },
   {
+    path: 'sign-up', component: LoginComponent
+  },
+  {
     path: 'personal-recipes', component: PersonalRecipeListComponent, children: [
       { path: 'your-recipes', component: YourRecipeComponent },
       { path: 'favorite-recipes', component: YourRecipeComponent },

@@ -5,6 +5,8 @@ import { Ingredient } from '../model/ingredient';
 import { Instruction } from '../model/instruction';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DialogComponent } from '../dialog/dialog.component';
+import { RecipeService } from '../service/recipe.service';
+import { EMPTY_IMAGE_MESSAGE_ERROR, EMPTY_MESSAGE_ERROR } from '../Constant';
 
 
 interface ValidateIngredient {
@@ -19,8 +21,8 @@ interface ValidateIngredient {
 })
 export class RecipeShareFormComponent implements OnInit {
   // form!: FormGroup;
-  EMPTY_MESSAGE_ERROR: string = "Vui lòng không để trống trường này";
-  EMPTY_IMAGE_MESSAGE_ERROR: string = "Vui lòng đăng một bức ảnh";
+  EMPTY_MESSAGE_ERROR: string = EMPTY_MESSAGE_ERROR;
+  EMPTY_IMAGE_MESSAGE_ERROR: string = EMPTY_IMAGE_MESSAGE_ERROR;
 
   validate: { name: boolean, ingredients: boolean[], instructions: boolean[], image: boolean } = {
     name: true,
@@ -29,7 +31,7 @@ export class RecipeShareFormComponent implements OnInit {
     image: true
   }
 
-  constructor(private dialog: MatDialog, private dialogRef: MatDialogRef<RecipeShareFormComponent>,) { }
+  constructor(private dialog: MatDialog, private dialogRef: MatDialogRef<RecipeShareFormComponent>, private recipeService: RecipeService) { }
   ngOnInit(): void {
     // this.form = this.fb.group({
     //   name: this.recipe.name,
@@ -135,6 +137,16 @@ export class RecipeShareFormComponent implements OnInit {
         if (instructionIndex != null)
           this.recipe.instructions[instructionIndex].images.push(reader.result! as string);
         else this.recipe.image = reader.result! as string;
+        // this.recipeService.postImage(reader.result as string).subscribe(
+        //   res => {
+        //     console.log(res.encodedImage);
+        //     this.recipe.instructions[1].images.push(res.encodedImage);
+        //   }
+        // )
+        console.log('lol');
+
+        console.log(reader.result);
+
       }
     };
     input.click();

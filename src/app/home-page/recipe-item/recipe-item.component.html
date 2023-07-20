@@ -1,7 +1,7 @@
-<a [routerLink]="['/recipes/'+recipe.id]">
+<div class="my-shadow rounded-2" style="cursor: pointer;" [routerLink]="['/recipes/'+recipe.id]">
   <img style="max-width: 100%;
 height: auto;" src={{recipe.img}}>
-  <div>
+  <div class="px-1 pb-1">
     <div class="float-start">{{recipe.name}}</div>
     <div style="cursor: pointer;" (click)="clickFavorite()" (mouseenter)="mouseEnterFavorite()"
       (mouseleave)="mouseLeaveFavorite()" class="float-end text-danger"
@@ -17,4 +17,4 @@ height: auto;" src={{recipe.img}}>
       </div>
     </div>
   </div>
-</a>
+</div>
