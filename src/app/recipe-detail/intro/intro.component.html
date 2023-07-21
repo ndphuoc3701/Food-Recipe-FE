@@ -92,7 +92,7 @@
 <h2 class="mt-5 mb-3">Hướng dẫn chế biến:</h2>
 <ol>
   <li *ngFor="let instruction of recipeDetail.recipeSharing.instructions">
-    {{instruction.step}}
+    {{instruction.content}}
     <div class="mt-1 mb-4">
       <img *ngFor="let image of instruction.images" style="height: 5em;" src={{image}}>
     </div>

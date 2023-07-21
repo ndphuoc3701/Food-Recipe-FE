@@ -18,5 +18,5 @@ export class UserService {
   login(userLogin: UserLogin) {
     return this.http.post<UserLogin>(HOST + 'users/login', userLogin);
   }
-  isLoggedInSubject: Subject<UserLogin> = new Subject<UserLogin>();
+  isLoggedInSubject: Subject<UserLogin | null> = new Subject<UserLogin | null>();
 }

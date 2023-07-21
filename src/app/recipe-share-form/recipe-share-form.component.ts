@@ -7,6 +7,8 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DialogComponent } from '../dialog/dialog.component';
 import { RecipeService } from '../service/recipe.service';
 import { EMPTY_IMAGE_MESSAGE_ERROR, EMPTY_MESSAGE_ERROR } from '../Constant';
+import { RecipeSharingRequest } from '../request/recipe-sharing-request';
+import { IngredientRecipeRequest } from '../request/ingredient-recipe-request';
 
 
 interface ValidateIngredient {
@@ -39,11 +41,13 @@ export class RecipeShareFormComponent implements OnInit {
     // })
 
   }
-  recipe: RecipeSharing = new RecipeSharing('', '', [new Ingredient('', '')], [new Instruction('', [])]);
+  recipe: RecipeSharing = new RecipeSharing('', '', [new Ingredient('', '')], [new Instruction('', 1, [])], 2);
+  // recipe:RecipeSharingRequest =new RecipeSharingRequest('','');
+  // recipeSharingRequest:RecipeSharingRequest=new RecipeSharingRequest('','',[new IngredientRecipeRequest('','')],[new Ins] )
   invalid: boolean = true;
   onSubmit() {
-    console.log(this.recipe);
     this.validateInput();
+    this.dialogRef.close(this.recipe);
   }
 
   validateInput() {
@@ -71,7 +75,7 @@ export class RecipeShareFormComponent implements OnInit {
   }
 
   validateInstruction(instructionIndex: number) {
-    if (this.recipe.instructions[instructionIndex].step == '')
+    if (this.recipe.instructions[instructionIndex].content == '')
       this.validate.instructions[instructionIndex] = false;
     else this.validate.instructions[instructionIndex] = true;
   }
@@ -92,7 +96,7 @@ export class RecipeShareFormComponent implements OnInit {
   }
 
   addInstruction() {
-    this.recipe.instructions.push(new Instruction('', []));
+    this.recipe.instructions.push(new Instruction('', this.recipe.instructions.length + 1, []));
     this.validate.instructions.push(true);
   }
 
@@ -143,10 +147,6 @@ export class RecipeShareFormComponent implements OnInit {
         //     this.recipe.instructions[1].images.push(res.encodedImage);
         //   }
         // )
-        console.log('lol');
-
-        console.log(reader.result);
-
       }
     };
     input.click();

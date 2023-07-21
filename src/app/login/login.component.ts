@@ -4,6 +4,8 @@ import { NavigationEnd, Router } from '@angular/router';
 import { UserService } from '../service/user.service';
 import { UserLogin } from '../model/userLogin';
 import { filter } from 'rxjs';
+import { error } from 'jquery';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +14,7 @@ import { filter } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
   isLogin: boolean = true;
+  isAuthenticateSuccess: boolean = true;
   fullName: string = '';
   username: string = '';
   password: string = '';
@@ -34,14 +37,11 @@ export class LoginComponent implements OnInit {
   }
 
   directLoginOrSignUp(location: any) { // This method is called many times
-    console.log(location.url); // This prints a loot of routes on console
     if (location.url === '/login') {
       this.isLogin = true;
     } else {
       this.isLogin = false;
     }
-    console.log(this.isLogin);
-
   }
 
   validate: { fullName: boolean, username: boolean, password: boolean, userImage: boolean } = {
@@ -81,22 +81,32 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-
-    console.log('lolc');
-    console.log(this.isLogin);
     if (this.validateInput()) {
-
-
       if (this.isLogin) {
-        console.log('lolc');
-        this.userService.login(new UserLogin(this.fullName, this.username, this.password, this.userImage)).subscribe(userLogin => {
-          this.userService.isLoggedInSubject.next(userLogin);
+        this.userService.login(new UserLogin(this.fullName, this.username, this.password, this.userImage)).subscribe({
+          next: (userLogin: UserLogin) => {
+            this.isAuthenticateSuccess = true;
+            this.userService.isLoggedInSubject.next(userLogin);
+          },
+          error: (error: HttpErrorResponse) => {
+            if (error.status == 404) {
+              this.isAuthenticateSuccess = false;
+            }
+          }
         })
       }
       else {
-        this.userService.signUp(new UserLogin(this.fullName, this.username, this.password, this.userImage)).subscribe(userLogin => {
-          this.userService.isLoggedInSubject.next(userLogin);
-        })
+        this.userService.signUp(new UserLogin(this.fullName, this.username, this.password, this.userImage)).subscribe(({
+          next: (userLogin: UserLogin) => {
+            this.isAuthenticateSuccess = true;
+            this.userService.isLoggedInSubject.next(userLogin);
+          },
+          error: (error: HttpErrorResponse) => {
+            if (error.status == 409) {
+              this.isAuthenticateSuccess = false;
+            }
+          }
+        }))
       }
     }
   }

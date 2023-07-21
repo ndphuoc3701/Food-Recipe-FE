@@ -4,6 +4,7 @@ import { RecipeShareFormComponent } from '../../recipe-share-form/recipe-share-f
 import { Recipe } from '../../model/recipe';
 import { ListType } from '../personal-recipe-list.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RecipeService } from 'src/app/service/recipe.service';
 
 @Component({
   selector: 'app-your-recipe',
@@ -27,7 +28,7 @@ export class YourRecipeComponent implements OnInit {
   listType!: ListType;
 
   recipes!: Recipe[];
-  constructor(private dialog: MatDialog, private router: Router) { }
+  constructor(private dialog: MatDialog, private router: Router, private recipeService: RecipeService) { }
   openDialog(): void {
     const dialogRef = this.dialog.open(RecipeShareFormComponent, {
       width: '40%',
@@ -35,8 +36,9 @@ export class YourRecipeComponent implements OnInit {
       autoFocus: false
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    dialogRef.afterClosed().subscribe(recipe => {
+      this.recipeService.createRecipe(recipe).subscribe();
+
     });
   }
 }

@@ -25,7 +25,6 @@ export class ScheduleRecipeComponent {
   }
   edit(event: any, recipeIdx: number, scheduleRecipe: LearntRecipe) {
     this.openEditDialog(recipeIdx, scheduleRecipe.recipe.scheduledDate!, scheduleRecipe.note);
-    console.log(scheduleRecipe.recipe.scheduledDate!, scheduleRecipe.note);
 
     event.stopImmediatePropagation();
   }
@@ -43,14 +42,8 @@ export class ScheduleRecipeComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-
-      console.log(this.scheduleRecipes);
-
       this.scheduleRecipes[result.recipeIdx].recipe.scheduledDate = result.scheduledDate;
       this.scheduleRecipes[result.recipeIdx].note = result.note;
-      console.log(this.scheduleRecipes);
-
     });
   }
 }

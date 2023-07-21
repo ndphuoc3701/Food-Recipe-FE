@@ -75,7 +75,7 @@
         <mat-label>Hướng dẫn bước {{instructionIndex+1}} (thêm ảnh nếu cần)
         </mat-label>
         <input (focusout)="validateInstruction(instructionIndex)" matInput
-          [(ngModel)]=this.recipe.instructions[instructionIndex].step>
+          [(ngModel)]=this.recipe.instructions[instructionIndex].content>
       </mat-form-field>
     </div>
     <div class="col-sm-1 my-auto p-0">
@@ -103,7 +103,7 @@
       </div>
     </div>
     <div *ngIf="validate.instructions[instructionIndex]==false" class="row">
-      <div class="col-sm-1">{{'cc'+validate.instructions[instructionIndex]}}</div>
+      <div class="col-sm-1"></div>
       <div class="col-sm-11 text-danger" style="font-size: x-small; padding: 0 16px;">{{EMPTY_MESSAGE_ERROR}}
       </div>
     </div>
@@ -134,7 +134,8 @@
 
 </mat-dialog-content>
 <mat-dialog-actions style="padding-right: 25px;" class="justify-content-end">
-  <button class="rounded-1 bg-warning border-warning text-white" (click)="onSubmit()" mat-raised-button>Submit</button>
+  <button class="rounded-1 bg-warning border-warning text-white" (click)="onSubmit()" mat-raised-button>Đăng
+    bài</button>
   <button class="rounded-1 text-white" mat-dialog-close style="background-color: #b9b9b9;"
     mat-raised-button>Huỷ</button>
 </mat-dialog-actions>

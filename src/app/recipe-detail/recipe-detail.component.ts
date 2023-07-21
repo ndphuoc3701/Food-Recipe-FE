@@ -20,7 +20,7 @@ export class RecipeDetailComponent implements OnInit {
     let userInfo = new UserInfo("Nguyen Duy Phuoc", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", 4.1, 3.5);
     let ingredients = [new Ingredient("Chanh", "1 trái"),
     new Ingredient("Bò", "5kg")]
-    this.recipeDetail = new RecipeDetail(recipe, userInfo, new RecipeSharing('l', '', ingredients, [new Instruction('Đun nước sôi', ['/assets/icon/cooker.png', '/assets/icon/forbidden.png']), new Instruction('Cắt thịt bò', ['/assets/icon/cookLevel.png'])]));
+    this.recipeDetail = new RecipeDetail(recipe, userInfo, new RecipeSharing('l', '', ingredients, [new Instruction('Đun nước sôi', 1, ['/assets/icon/cooker.png', '/assets/icon/forbidden.png']), new Instruction('Cắt thịt bò', 2, ['/assets/icon/cookLevel.png'])], 2));
   }
 
   toFix(n: number): string {

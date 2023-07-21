@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../service/user.service';
 import { UserLogin } from '../model/userLogin';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -11,11 +12,21 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.userService.isLoggedInSubject.subscribe(v => {
       this.userLogin = v;
-      console.log(this.userLogin);
-
+      if (v == null) {
+        this.router.navigate(['/login']);
+      }
+      else {
+        this.router.navigate(['/']);
+      }
     })
   }
-  userLogin!: UserLogin;
-  constructor(private userService: UserService) { }
+  // userLogin: UserLogin | null = null;
+  userLogin: UserLogin | null = new UserLogin('lol', 'cc', 'ccs', 'c');
+
+  constructor(private userService: UserService, private router: Router) { }
+
+  logOut() {
+    this.userService.isLoggedInSubject.next(null);
+  }
 
 }

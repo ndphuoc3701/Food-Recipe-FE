@@ -1,3 +1,3 @@
 export class Instruction {
-  constructor(public step: string, public images: string[]) { }
+  constructor(public content: string, public stepOrder: number, public images: string[]) { }
 }

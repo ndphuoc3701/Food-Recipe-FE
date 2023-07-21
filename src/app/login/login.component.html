@@ -9,7 +9,7 @@
       <mat-dialog-content>
         <div *ngIf="isLogin==false">
           <mat-form-field class="mb-1" style="width: 100%;" [ngClass]="{'border-danger':!validate.fullName}">
-            <mat-label>Full Name</mat-label>
+            <mat-label>Tên của bạn</mat-label>
             <input (focusout)="validateFullName()" matInput [(ngModel)]=fullName>
           </mat-form-field>
           <div *ngIf="!validate.fullName" class="row mb-1">
@@ -19,7 +19,7 @@
           </div>
         </div>
         <mat-form-field class="mb-1" style="width: 100%;" [ngClass]="{'border-danger':!validate.username}">
-          <mat-label>Username</mat-label>
+          <mat-label>Tên đăng nhập</mat-label>
           <input (focusout)="validateUserName()" matInput [(ngModel)]="username">
         </mat-form-field>
         <div *ngIf="!validate.username" class="row mb-1">
@@ -28,7 +28,7 @@
           </div>
         </div>
         <mat-form-field style="width: 100%;" [ngClass]="{'border-danger':!validate.password}">
-          <mat-label>Password</mat-label>
+          <mat-label>Mật khẩu</mat-label>
           <input (focusout)="validatePassword()" matInput [(ngModel)]="password">
         </mat-form-field>
         <div *ngIf="!validate.password" class="row mb-1">
@@ -54,7 +54,9 @@
           </div>
         </div>
       </mat-dialog-content>
-
+      <div *ngIf="!isAuthenticateSuccess" class="text-danger text-center" style="font-size: small;">
+        {{isLogin?'Tên đăng nhập hoặc mật khẩu không đúng':'Tên đăng nhập đã tồn tại'}}
+      </div>
       <div *ngIf="isLogin==true" class="text-center my-2" style="font-size: small;">
         Chưa có tài khoản? <span class="text-warning" style="cursor: pointer;"
           (click)="router.navigate(['/sign-up']);">Đăng ký
@@ -65,6 +67,7 @@
           nhập
           ngay</span>
       </div>
+
       <mat-dialog-actions class="justify-content-center d-flex mt-1">
         <button (click)="submit()" class="rounded-1 bg-warning border-warning text-white" mat-raised-button>
           {{isLogin?'Đăng nhập':'Đăng ký'}}</button>

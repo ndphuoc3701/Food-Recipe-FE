@@ -24,10 +24,9 @@
         Welcome, {{userLogin.fullName}} <img src={{userLogin.image}}
           style="height: 35px; width: 35px;border-radius: 50%; background-color: white;">
       </div>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <ul class="dropdown-menu" style="min-width: 130px;" aria-labelledby="dropdownMenuButton1">
         <li><a class="dropdown-item" href="#">Hồ sơ của tôi</a></li>
-        <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
-        <li><a class="dropdown-item" href="#">Something else here</a></li>
+        <li><a class="dropdown-item" (click)="logOut()">Đăng xuất</a></li>
       </ul>
     </div>
   </div>
