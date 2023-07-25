@@ -1,6 +1,6 @@
 <div class="my-shadow rounded-2" style="cursor: pointer;" [routerLink]="['/recipes/'+recipe.id]">
   <img style="max-width: 100%;
-height: auto;" src={{recipe.img}}>
+height: auto;" src={{recipe.image}}>
   <div class="px-1 pb-1">
     <div class="float-start">{{recipe.name}}</div>
     <div style="cursor: pointer;" (click)="clickFavorite()" (mouseenter)="mouseEnterFavorite()"
@@ -13,7 +13,7 @@ height: auto;" src={{recipe.img}}>
           class="bi text-warning"></i>
       </ng-container>
       <div class="float-end"
-        [innerText]="(recipe.numEvaluate>1000?toFix(recipe.numEvaluate)+'k': recipe.numEvaluate)+' Đánh giá'">
+        [innerText]="(recipe.numEvaluation>1000?toFix(recipe.numEvaluation)+'k': recipe.numEvaluation)+' Đánh giá'">
       </div>
     </div>
   </div>

@@ -12,3 +12,13 @@
   border-bottom: 0;
   border-left: 0.3em solid transparent;
 }
+
+.active-link {
+  border-bottom: solid;
+  border-bottom-color: white;
+  color: white;
+}
+
+.nav-link:hover {
+  color: white;
+}

@@ -1,13 +1,42 @@
-<div style="background-color: #dedbdb; height: 100%;">
-  <div class="m-auto bg-white p-3" style="width: 35%; height: 100%;">
+<div style="background-color: #dedbdb;">
+  <div class="m-auto bg-white p-3" style="width: 35%;">
     <div class="container">
-      <!-- <div [routerLink]="['/recipes/'+recipe.id]" *ngFor="let recipe of recipes" class="row p-2 mb-2 item"
-        style="cursor: pointer;">
-        <div class="col-sm-12 ">
-          <app-common-recipe-list [listType]="listType" [recipe]="recipe"></app-common-recipe-list>
-        </div>
-      </div> -->
       <router-outlet></router-outlet>
     </div>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item" [ngClass]="{'disabled':this.recipeService.selectedPage==1}">
+          <a [routerLink]="['/common-recipes',currentLink]" [queryParams]="{page:this.recipeService.selectedPage-1}"
+            style="color: black;" class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item">
+          <a [routerLink]="['/personal-recipes',currentLink]" [queryParams]="{page:page1()}"
+            [ngStyle]="{'background-color':this.recipeService.selectedPage==1?'#ffe127':''}" style="color: black;"
+            class="page-link">
+            {{page1()}}
+          </a>
+        </li>
+        <li *ngIf="this.recipeService.numPage>1" class="page-item">
+          <a [routerLink]="['/personal-recipes',currentLink]" [queryParams]="{page:page2()}"
+            [ngStyle]="{'background-color':this.recipeService.selectedPage!=1&&(this.recipeService.selectedPage!=this.recipeService.numPage&&this.recipeService.numPage!=2)||(this.recipeService.selectedPage==this.recipeService.numPage&&this.recipeService.numPage==2)?'#ffe127':''}"
+            style="color: black;" class="page-link">{{page2()}}
+          </a>
+        </li>
+        <li *ngIf="this.recipeService.numPage>2" class="page-item">
+          <a [routerLink]="['/personal-recipes',currentLink]" [queryParams]="{page:page3()}"
+            [ngStyle]="{'background-color':this.recipeService.selectedPage==this.recipeService.numPage?'#ffe127':''}"
+            style="color: black;" class="page-link">{{page3()}}
+          </a>
+        </li>
+        <li class="page-item" [ngClass]="{'disabled':this.recipeService.selectedPage==this.recipeService.numPage}">
+          <a [routerLink]="['/personal-recipes',currentLink]" [queryParams]="{page:this.recipeService.selectedPage+1}"
+            style="color: black;" class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </div>

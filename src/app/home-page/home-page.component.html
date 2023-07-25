@@ -14,11 +14,7 @@
 
 </div>
 <div class="grid-container container">
-
   <app-recipe-item [recipe]="item" *ngFor="let item of recipes"></app-recipe-item>
-  <!-- <app-recipe-item></app-recipe-item>
-  <app-recipe-item></app-recipe-item>
-  <app-recipe-item></app-recipe-item> -->
 </div>
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
@@ -36,8 +32,8 @@
     </li>
     <li *ngIf="numPage>1" class="page-item">
       <a [routerLink]="['/']" [queryParams]="{page:page2()}"
-        [ngStyle]="{'background-color':selectedPage!=1&&selectedPage!=numPage?'#ffe127':''}" style="color: black;"
-        class="page-link">{{page2()}}
+        [ngStyle]="{'background-color':selectedPage!=1&&(selectedPage!=numPage&&numPage!=2)||(selectedPage==numPage&&numPage==2)?'#ffe127':''}"
+        style="color: black;" class="page-link">{{page2()}}
       </a>
     </li>
     <li *ngIf="numPage>2" class="page-item">

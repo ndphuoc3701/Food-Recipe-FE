@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Recipe } from '../model/recipe';
+import { Pagination } from '../model/pagination';
+import { RecipeService } from '../service/recipe.service';
 
 
 export enum ListType {
@@ -16,31 +18,52 @@ export enum ListType {
   styleUrls: ['./personal-recipe-list.component.css']
 })
 export class PersonalRecipeListComponent {
-  constructor(private router: Router) { }
+  currentLink!: string;
+  constructor(private router: Router, private route: ActivatedRoute, public recipeService: RecipeService) { }
   ngOnInit(): void {
-    if (this.router.url.includes('favorite-recipes')) {
-      this.listType = ListType.Favorite;
-      this.recipes = [new Recipe(1, "Bò hầm", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", true, 4.25, 1002, 50, '20/5/2023', '20/5/2023', '20/5/2023'),
-      new Recipe(2, "Heo hầm", "/assets/recipe/z4459772476120_e4ad895886890eebd49855cbfe6baa39.jpg", false, 3.25, 1102, 50, '21/6/2023', '20/5/2023', '20/5/2023')];
-    }
-    else if (this.router.url.includes('your-recipes')) {
-      this.listType = ListType.Your;
-      this.recipes = [new Recipe(1, "Heo hầm", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", true, 4.25, 1002, 50, '21/6/2023', '20/5/2023', '20/5/2023'),
-      new Recipe(2, "Bò hầm", "/assets/recipe/z4459772476120_e4ad895886890eebd49855cbfe6baa39.jpg", false, 3.25, 1102, 50, '20/5/2023', '20/5/2023', '20/5/2023')];
-    }
-    else if (this.router.url.includes('learnt-recipes')) {
-      this.listType = ListType.Learn;
-      this.recipes = [new Recipe(1, "Cá hầm", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", true, 4.25, 1002, 50, '21/6/2023', '20/5/2023', '20/5/2023'),
-      new Recipe(2, "Bò hầm", "/assets/recipe/z4459772476120_e4ad895886890eebd49855cbfe6baa39.jpg", false, 3.25, 1102, 50, '20/5/2023', '20/5/2023', '20/5/2023')];
-    }
-    else if (this.router.url.includes('schedule-recipes')) {
-      this.listType = ListType.Schedule;
-      this.recipes = [new Recipe(1, "Gà hầm", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", true, 4.25, 1002, 50, '21/6/2023', '20/5/2023', '20/5/2023'),
-      new Recipe(2, "Bò hầm", "/assets/recipe/z4459772476120_e4ad895886890eebd49855cbfe6baa39.jpg", false, 3.25, 1102, 50, '20/5/2023', '20/5/2023', '20/5/2023')];
-    };
+
+    this.route.queryParams
+      .subscribe(params => {
+        this.recipeService.selectedPage = +params['page'];
+        if (isNaN(this.recipeService.selectedPage)) {
+          this.recipeService.selectedPage = 1;
+        }
+        if (this.router.url.includes('favorite-recipes')) {
+          this.currentLink = 'favorite-recipes';
+          this.recipeService.getFavoriteRecipesByUserId(2, this.recipeService.selectedPage).subscribe(res => {
+            this.getResponse(res);
+          });
+        }
+        else if (this.router.url.includes('your-recipes')) {
+          this.currentLink = 'your-recipes';
+          this.recipeService.getRecipesByUserId(2, this.recipeService.selectedPage).subscribe(res => {
+            this.getResponse(res);
+          });
+        }
+        else if (this.router.url.includes('learnt-recipes')) {
+          this.currentLink = 'learnt-recipes';
+        }
+        else if (this.router.url.includes('schedule-recipes')) {
+          this.currentLink = 'schedule-recipes';
+
+        };
+      });
   }
 
-  listType!: ListType;
+  getResponse(res: Pagination<Recipe>) {
+    this.recipeService.recipes = res.objects;
+    this.recipeService.numPage = res.totalPages;
+  }
 
-  recipes!: Recipe[];
+  page1() {
+    return this.recipeService.selectedPage == 1 ? 1 : this.recipeService.selectedPage == this.recipeService.numPage && this.recipeService.numPage != 2 ? this.recipeService.numPage - 2 : this.recipeService.selectedPage - 1;
+  }
+
+  page2() {
+    return this.recipeService.selectedPage == 1 ? 2 : this.recipeService.selectedPage == this.recipeService.numPage && this.recipeService.numPage != 2 ? this.recipeService.selectedPage - 1 : this.recipeService.selectedPage;
+  }
+
+  page3() {
+    return this.recipeService.selectedPage == this.recipeService.numPage ? this.recipeService.selectedPage : this.recipeService.selectedPage == 1 ? 3 : this.recipeService.selectedPage + 1;
+  }
 }
