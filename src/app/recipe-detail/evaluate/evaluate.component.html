@@ -1,5 +1,5 @@
 <h2> Đánh giá món ăn</h2>
-<form #evaluateForm="ngForm" style="background-color: #ffeda4;" class="rounded-3 p-3 mb-3 " (submit)="submit()">
+<form #evaluateForm="ngForm" style="background-color: #ffeda4;" class="rounded-3 p-3 mb-3 ">
   <div class="text-center mb-3" style="font-size:xx-large">
     <ng-container *ngFor="let item of [0,1,2,3,4]">
       <i (mouseenter)="hoverStar(item)" (mouseleave)="unhoverStar()"
@@ -47,8 +47,8 @@
     </div>
     <div style="margin-left:6%">
       <div *ngIf="imageUrls.length>0" class="d-flex">
-        <div *ngFor="let item of evaluation.imageUrls" class="me-1">
-          <img src={{item}} class="" style="width: 5em;height: 5em;">
+        <div *ngFor="let item of evaluation.images" class="me-1">
+          <img src={{item.data}} class="" style="width: 5em;height: 5em;">
         </div>
       </div>
       <div class="my-2">{{evaluation.content}}</div>

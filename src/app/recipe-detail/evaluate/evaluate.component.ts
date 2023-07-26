@@ -5,12 +5,10 @@ import { Evaluation } from 'src/app/model/evaluation';
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { DialogComponent } from 'src/app/dialog/dialog.component';
 import { UserInfo } from 'src/app/model/user-info';
-import { UserComment } from 'src/app/model/userComment';
 import { ActivatedRoute } from '@angular/router';
+import { Image } from 'src/app/model/image';
+import { EvaluationService } from 'src/app/service/evaluation.service';
 
-class ImageSnippet {
-  constructor(public src: string, public file: File) { }
-}
 @Component({
   selector: 'app-evaluate',
   templateUrl: './evaluate.component.html',
@@ -21,7 +19,7 @@ export class EvaluateComponent implements OnInit {
   numPage: number = 5;
   selectedPage: number = 1;
   recipeId!: number;
-  constructor(public dialog: MatDialog, private route: ActivatedRoute) { }
+  constructor(public dialog: MatDialog, private route: ActivatedRoute, private evaluationService: EvaluationService) { }
   ngOnInit(): void {
     this.route.queryParams
       .subscribe(params => {
@@ -29,41 +27,43 @@ export class EvaluateComponent implements OnInit {
         if (isNaN(this.selectedPage)) {
           this.selectedPage = 1;
         }
-        if (this.selectedPage == 2) {
-          this.communityEvaluation = [new Evaluation(1, 'ngon', 4, new UserInfo('Nguyen Duy Phong', '/assets/icon/cooker.png'), '3/7/2023 20:00', 100, 50, [], []),
-          new Evaluation(1, 'dở', 4.4, new UserInfo('Nguyen Ngoc Bao Anh', '/assets/icon/cookLevel.png'), '3/7/2023 21:00', 100, 50, [], ['/assets/icon/cooker.png', '/assets/icon/cookLevel.png'])];
+        this.route.params.subscribe((params) => {
+          this.recipeId = +params['id'];
+          this.evaluationService.getEvaluationsByRecipeId(this.recipeId, this.selectedPage).subscribe(res => {
+            this.communityEvaluation = res.objects;
+            this.numPage = res.totalPages;
+          });
+        })
+        // if (this.selectedPage == 2) {
+        //   this.communityEvaluation = [new Evaluation(1, 'ngon', 4, new UserInfo('Nguyen Duy Phong', '/assets/icon/cooker.png'), '3/7/2023 20:00', 100, 50, 3, [], null, null),
+        //   new Evaluation(1, 'dở', 4.4, new UserInfo('Nguyen Ngoc Bao Anh', '/assets/icon/cookLevel.png'), '3/7/2023 21:00', 100, 50, 2, [new Image('/assets/icon/cooker.png'), new Image('/assets/icon/cookLevel.png')], null, null)];
 
-        }
-        if (this.selectedPage == 1) {
-          this.communityEvaluation = [new Evaluation(1, 'ngon', 4, new UserInfo('Nguyen Duy Phuoc', '/assets/icon/cooker.png'), '3/7/2023 20:00', 100, 50, [], []),
-          new Evaluation(1, 'dở', 4.4, new UserInfo('Nguyen Ngoc Bao Han', '/assets/icon/cookLevel.png'), '3/7/2023 21:00', 100, 50, [], ['/assets/icon/cooker.png', '/assets/icon/cookLevel.png'])];
+        // }
+        // if (this.selectedPage == 1) {
+        //   this.communityEvaluation = [new Evaluation(1, 'ngon', 4, new UserInfo('Nguyen Duy Phuoc', '/assets/icon/cooker.png'), '3/7/2023 20:00', 100, 50, 3, [], null, null),
+        //   new Evaluation(1, 'dở', 4.4, new UserInfo('Nguyen Ngoc Bao Han', '/assets/icon/cookLevel.png'), '3/7/2023 21:00', 100, 50, 2, [new Image('/assets/icon/cooker.png'), new Image('/assets/icon/cookLevel.png')], null, null)];
 
-        }
+        // }
       });
-    this.route.params.subscribe((params) => {
-      this.recipeId = +params['id'];
 
-    })
-    this.communityEvaluation.forEach(e => {
-      e.images.forEach(i => {
-        var reader = new FileReader();
-        reader.readAsDataURL(i);
+    // this.communityEvaluation.forEach(e => {
+    //   e.images.forEach(i => {
+    //     var reader = new FileReader();
+    //     reader.readAsDataURL(i);
 
-        reader.onload = (_event) => {
-          e.imageUrls.push(reader.result! as string);
-        }
-      })
+    //     reader.onload = (_event) => {
+    //       e.imageUrls.push(reader.result! as string);
+    //     }
+    //   })
 
-    })
+    // })
 
   }
 
-  evaluation!: Evaluation;
   imageUrls: string[] = ['/assets/icon/evaluateLevel.png'];
-  userComment: UserComment = new UserComment(1, 'Dung', new UserInfo('Nguyen Duy Khanh', '/assets/icon/cookLevel.png'), 'Be Meo', '3/7/2023 21:00');
-  communityEvaluation: Evaluation[] = [new Evaluation(1, 'ngon', 4, new UserInfo('Nguyen Duy Phuoc', '/assets/icon/cooker.png'), '3/7/2023 20:00', 100, 50, [], []),
-  new Evaluation(1, 'dở', 4.4, new UserInfo('Nguyen Ngoc Bao Han', '/assets/icon/cookLevel.png'), '3/7/2023 21:00', 100, 50, [], ['/assets/icon/cooker.png', '/assets/icon/cookLevel.png'])];
-
+  // communityEvaluation: Evaluation[] = [new Evaluation(1, 'ngon', 4, new UserInfo('Nguyen Duy Phuoc', '/assets/icon/cooker.png'), '3/7/2023 20:00', 100, 50, 2, [], null, null),
+  // new Evaluation(1, 'dở', 4.4, new UserInfo('Nguyen Ngoc Bao Han', '/assets/icon/cookLevel.png'), '3/7/2023 21:00', 100, 50, 3, [new Image('/assets/icon/cooker.png'), new Image('/assets/icon/cookLevel.png')], null, null)];
+  communityEvaluation!: Evaluation[]
   // constructor(private imageService: ImageService){}
 
   @ViewChild('evaluationInput') evaluationInputRef!: ElementRef;
@@ -97,21 +97,6 @@ export class EvaluateComponent implements OnInit {
     else {
       evaluation.isLike = false;
     }
-  }
-
-  submit() {
-    //     var reader = new FileReader();
-    //     var fileByteArray = [];
-    //     reader.readAsArrayBuffer(myFile);
-    //     reader.onloadend = function (evt) {
-    //     if (evt.target.readyState == FileReader.DONE) {
-    //        var arrayBuffer = evt.target.result,
-    //            array = new Uint8Array(arrayBuffer);
-    //        for (var i = 0; i < array.length; i++) {
-    //            fileByteArray.push(array[i]);
-    //         }
-    //     }
-    // }
   }
 
   uploadImage() {

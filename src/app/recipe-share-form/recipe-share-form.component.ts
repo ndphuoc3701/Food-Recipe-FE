@@ -9,6 +9,7 @@ import { RecipeService } from '../service/recipe.service';
 import { EMPTY_IMAGE_MESSAGE_ERROR, EMPTY_MESSAGE_ERROR } from '../Constant';
 import { RecipeSharingRequest } from '../request/recipe-sharing-request';
 import { IngredientRecipeRequest } from '../request/ingredient-recipe-request';
+import { Image } from '../model/image';
 
 
 interface ValidateIngredient {
@@ -139,7 +140,7 @@ export class RecipeShareFormComponent implements OnInit {
       reader.readAsDataURL(file);
       reader.onload = (_event) => {
         if (instructionIndex != null)
-          this.recipe.instructions[instructionIndex].images.push(reader.result! as string);
+          this.recipe.instructions[instructionIndex].images.push(new Image(reader.result! as string));
         else this.recipe.image = reader.result! as string;
         // this.recipeService.postImage(reader.result as string).subscribe(
         //   res => {

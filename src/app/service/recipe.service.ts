@@ -15,9 +15,6 @@ export class RecipeService {
 
   constructor(private http: HttpClient) { }
 
-  // postImage(a: string) {
-  //   return this.http.post<{ encodedImage: string }>(HOST + 'api/recipes/lol', { "encodedImage": a });
-  // }
   RECIPE_HOST = HOST + 'recipes';
   numPage!: number;
   selectedPage!: number;
