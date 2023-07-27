@@ -93,7 +93,7 @@
 
     <div *ngIf="instruction.images.length>0" class="d-flex mt-1">
       <div *ngFor="let image of instruction.images;let imageIndex =index" class="me-1 position-relative">
-        <img src={{image}} class="" style="width: 5em;height: 5em;">
+        <img src={{image.data}} class="" style="width: 5em;height: 5em;">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
           (click)="removeInstructionImage(instructionIndex,imageIndex)" class="text-white bi bi-x position-absolute"
           style="top:0;right:0;width: 1.5em;height:1.5em;background-color: dimgray;" viewBox="0 0 16 16">

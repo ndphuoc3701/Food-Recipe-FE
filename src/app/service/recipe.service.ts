@@ -30,7 +30,7 @@ export class RecipeService {
   }
 
   getRecipesByUserId(userId: number, pageNumber: number) {
-    return this.http.get<Pagination<Recipe>>(`${this.RECIPE_HOST}/user-recipes?userId=${userId}&page=${pageNumber}`);
+    return this.http.get<Pagination<Recipe>>(`${this.RECIPE_HOST}/users/${userId}?page=${pageNumber}`);
   }
 
   addFavoriteRecipe(userId: number, recipeId: number) {

@@ -5,6 +5,7 @@ import { LearntRecipe } from 'src/app/model/learnt-recipe';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/dialog/dialog.component';
 import { EditPersonalRecipeComponent } from 'src/app/edit-personal-recipe/edit-personal-recipe.component';
+import { Image } from 'src/app/model/image';
 
 @Component({
   selector: 'app-learnt-recipe',
@@ -13,15 +14,16 @@ import { EditPersonalRecipeComponent } from 'src/app/edit-personal-recipe/edit-p
 })
 export class LearntRecipeComponent {
   listType: ListType = ListType.Schedule;
-  learntRecipes: LearntRecipe[] = [
-    new LearntRecipe(new Recipe(1, "Heo hầm", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", true, 4.25, 1002, 50, '21/6/2023', '22/6/2023', '23/6/2023'), 'Thêm muối', ['/assets/icon/cooker.png', '/assets/icon/cookLevel.png']),
-    new LearntRecipe(new Recipe(2, "Bò hầm", "/assets/recipe/z4459772476120_e4ad895886890eebd49855cbfe6baa39.jpg", false, 3.25, 1102, 50, '20/5/2023', '21/5/2023', '22/5/2023'), 'Thêm mắm', ['/assets/icon/cookLevel.png', '/assets/icon/cooker.png'])
-  ];
+  // learntRecipes: LearntRecipe[] = [
+  //   new LearntRecipe(new Recipe(1, "Heo hầm", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", true, 4.25, 1002, 50, '21/6/2023', '22/6/2023', '23/6/2023'), 'Thêm muối', ['/assets/icon/cooker.png', '/assets/icon/cookLevel.png']),
+  //   new LearntRecipe(new Recipe(2, "Bò hầm", "/assets/recipe/z4459772476120_e4ad895886890eebd49855cbfe6baa39.jpg", false, 3.25, 1102, 50, '20/5/2023', '21/5/2023', '22/5/2023'), 'Thêm mắm', ['/assets/icon/cookLevel.png', '/assets/icon/cooker.png'])
+  // ];
+  learntRecipes!: LearntRecipe[];
 
   constructor(private dialog: MatDialog) { }
 
   addLearntImage(learntRecipesIndex: number) {
-    let lengthImage = this.learntRecipes[learntRecipesIndex].learntImages.length
+    let lengthImage = this.learntRecipes[learntRecipesIndex].evaluation.images.length
     if (lengthImage > 0) {
       let dialogRef = this.dialog.open(DialogComponent, {
         width: '20%',
@@ -54,7 +56,7 @@ export class LearntRecipeComponent {
       var reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (_event) => {
-        this.learntRecipes[instructionIndex].learntImages.push(reader.result! as string);
+        this.learntRecipes[instructionIndex].evaluation.images.push(new Image(reader.result! as string));
       }
     };
     input.click();
@@ -62,7 +64,7 @@ export class LearntRecipeComponent {
   }
 
   removeLearntRecipeImage(learntRecipeIndex: number, imageIndex: number) {
-    this.learntRecipes[learntRecipeIndex].learntImages.splice(imageIndex, 1);
+    this.learntRecipes[learntRecipeIndex].evaluation.images.splice(imageIndex, 1);
   }
 
   lol(event: any) {
@@ -70,7 +72,7 @@ export class LearntRecipeComponent {
   }
 
   edit(event: any, learntRecipeIndex: number, learntRecipe: LearntRecipe) {
-    this.openEditDialog(learntRecipeIndex, learntRecipe.note);
+    this.openEditDialog(learntRecipeIndex, learntRecipe.evaluation.note!);
     event.stopImmediatePropagation();
   }
   openEditDialog(learntRecipeIndex: number, note: string): void {
@@ -84,7 +86,7 @@ export class LearntRecipeComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.learntRecipes[result.recipeIdx].note = result.note
+      this.learntRecipes[result.recipeIdx].evaluation.note = result.note
     });
   }
 }

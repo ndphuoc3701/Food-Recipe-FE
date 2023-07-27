@@ -19,6 +19,6 @@ export class EvaluationService {
   }
 
   getEvaluationsByRecipeId(recipeId: number, pageNumber: number) {
-    return this.http.get<Pagination<Evaluation>>(`${this.EVALUATION_HOST}/${recipeId}?page=${pageNumber}`);
+    return this.http.get<Pagination<Evaluation>>(`${this.EVALUATION_HOST}/recipes/${recipeId}?page=${pageNumber}`);
   }
 }

@@ -34,10 +34,10 @@
   <div *ngFor="let evaluation of communityEvaluation" class="border-bottom py-2">
     <div class="d-flex">
       <div style="width: 5%; margin-right: 1%;">
-        <img src={{evaluation.user.img}} style=" border-radius: 50%;width:100%">
+        <img src={{evaluation.user.image}} style=" border-radius: 50%;width:100%">
       </div>
       <div style="font-size: smaller;">
-        <div>{{evaluation.user.name}}</div>
+        <div>{{evaluation.user.fullName}}</div>
         <ng-container *ngFor="let item of [0,1,2,3,4]">
           <i [ngClass]="{'bi-star-fill':evaluation.numStar>=item+0.75,'bi-star-half':evaluation.numStar<item+0.75&&evaluation.numStar>=item+0.25,'bi-star':evaluation.numStar<item+0.25}"
             class="bi text-warning" style="font-size: larger;"></i>

@@ -12,16 +12,16 @@
         <div class="row">
           <div class="col-sm-11 ps-0">
             <i class="bi bi-book me-1"></i>
-            {{'Học lúc '+learntRecipe.recipe.learntDate}}
+            {{'Học lúc '+learntRecipe.evaluation.createdDate}}
           </div>
           <div class="col-sm-1 text-end pe-0" (click)="edit($event,learntRecipeIndex,learntRecipe)">
             <i class="bi bi-pencil-square text-end" style="cursor: pointer;"></i>
           </div>
         </div>
         <div class="row">
-          <div *ngIf="learntRecipe.note" class="col-sm-12 ps-0 mt-1">
+          <div *ngIf="learntRecipe.evaluation.note" class="col-sm-12 ps-0 mt-1">
             <i class="bi bi-sticky me-1"></i>
-            {{'Ghi chú: '+learntRecipe.note}}
+            {{'Ghi chú: '+learntRecipe.evaluation.note}}
           </div>
         </div>
         <div class="row">
@@ -29,9 +29,10 @@
             <i class="bi bi-camera me-1"></i>
             Thành quả của bạn:
           </div>
-          <div *ngIf="learntRecipe.learntImages.length>0" class="d-flex mt-1 px-4">
-            <div *ngFor="let image of learntRecipe.learntImages;let imageIndex =index" class="me-1 position-relative">
-              <img src={{image}} style="width: 5em;height: 5em;">
+          <div *ngIf="learntRecipe.evaluation.images.length>0" class="d-flex mt-1 px-4">
+            <div *ngFor="let image of learntRecipe.evaluation.images;let imageIndex =index"
+              class="me-1 position-relative">
+              <img src={{image.data}} style="width: 5em;height: 5em;">
             </div>
           </div>
         </div>
