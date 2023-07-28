@@ -14,7 +14,7 @@ export class EvaluationService {
 
   EVALUATION_HOST = HOST + 'evaluations';
 
-  createRecipe(evaluationRequest: EvaluationRequest) {
+  createEvaluation(evaluationRequest: EvaluationRequest) {
     return this.http.post<Evaluation>(this.EVALUATION_HOST, evaluationRequest);
   }
 

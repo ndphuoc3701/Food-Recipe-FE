@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import { ListType } from '../personal-recipe-list.component';
-import { Recipe } from 'src/app/model/recipe';
-import { LearntRecipe } from 'src/app/model/learnt-recipe';
+import { LearntRecipe } from 'src/app/model/learntRecipe';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from 'src/app/dialog/dialog.component';
 import { EditPersonalRecipeComponent } from 'src/app/edit-personal-recipe/edit-personal-recipe.component';
-import { Image } from 'src/app/model/image';
 
 @Component({
   selector: 'app-learnt-recipe',
@@ -21,51 +18,6 @@ export class LearntRecipeComponent {
   learntRecipes!: LearntRecipe[];
 
   constructor(private dialog: MatDialog) { }
-
-  addLearntImage(learntRecipesIndex: number) {
-    let lengthImage = this.learntRecipes[learntRecipesIndex].evaluation.images.length
-    if (lengthImage > 0) {
-      let dialogRef = this.dialog.open(DialogComponent, {
-        width: '20%',
-        autoFocus: false
-      });
-      return;
-    }
-    this.uploadImage(learntRecipesIndex);
-  }
-
-  uploadImage(instructionIndex: number) {
-    let image = '';
-    let input = document.createElement('input');
-    input.type = 'file';
-    input.addEventListener
-    input.onchange = event => {
-      let file = (event.target as HTMLInputElement).files![0]
-      if (!file || file.length == 0) {
-        alert('You must select an image');
-        return;
-      }
-
-      var mimeType = file.type;
-
-      if (mimeType.match(/image\/*/) == null) {
-        alert("Only images are supported");
-        return;
-      }
-
-      var reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (_event) => {
-        this.learntRecipes[instructionIndex].evaluation.images.push(new Image(reader.result! as string));
-      }
-    };
-    input.click();
-    return image;
-  }
-
-  removeLearntRecipeImage(learntRecipeIndex: number, imageIndex: number) {
-    this.learntRecipes[learntRecipeIndex].evaluation.images.splice(imageIndex, 1);
-  }
 
   lol(event: any) {
     event.stopImmediatePropagation();

@@ -8,6 +8,7 @@ import { UserInfo } from 'src/app/model/user-info';
 import { ActivatedRoute } from '@angular/router';
 import { Image } from 'src/app/model/image';
 import { EvaluationService } from 'src/app/service/evaluation.service';
+import { EvaluationRequest } from 'src/app/request/evaluation';
 
 @Component({
   selector: 'app-evaluate',
@@ -52,7 +53,7 @@ export class EvaluateComponent implements OnInit {
     //     reader.readAsDataURL(i);
 
     //     reader.onload = (_event) => {
-    //       e.imageUrls.push(reader.result! as string);
+    //       e.images.push(reader.result! as string);
     //     }
     //   })
 
@@ -60,7 +61,7 @@ export class EvaluateComponent implements OnInit {
 
   }
 
-  imageUrls: string[] = ['/assets/icon/evaluateLevel.png'];
+  images: Image[] = [new Image('/assets/icon/evaluateLevel.png')];
   // communityEvaluation: Evaluation[] = [new Evaluation(1, 'ngon', 4, new UserInfo('Nguyen Duy Phuoc', '/assets/icon/cooker.png'), '3/7/2023 20:00', 100, 50, 2, [], null, null),
   // new Evaluation(1, 'dở', 4.4, new UserInfo('Nguyen Ngoc Bao Han', '/assets/icon/cookLevel.png'), '3/7/2023 21:00', 100, 50, 3, [new Image('/assets/icon/cooker.png'), new Image('/assets/icon/cookLevel.png')], null, null)];
   communityEvaluation!: Evaluation[]
@@ -69,8 +70,14 @@ export class EvaluateComponent implements OnInit {
   @ViewChild('evaluationInput') evaluationInputRef!: ElementRef;
   starHovered: number = -1;
 
+  starSelected:number=-1;
+
+  note!:string;
+
+  content!:string;
+
   removeImage(imgUrlIdx: number) {
-    this.imageUrls.splice(imgUrlIdx, 1);
+    this.images.splice(imgUrlIdx, 1);
   }
 
   hoverStar(n: number) {
@@ -100,10 +107,10 @@ export class EvaluateComponent implements OnInit {
   }
 
   uploadImage() {
-    if (this.imageUrls.length > 4) {
+    if (this.images.length > 4) {
       let dialogRef = this.dialog.open(DialogComponent, {
-        width: '400px',
-        data: { name: 'austin' },
+        width: '20%',
+        data: { text:'Bạn chỉ có thể đăng tối đa 5 bức ảnh thôi nhé!!' },
       });
       return;
     }
@@ -127,14 +134,14 @@ export class EvaluateComponent implements OnInit {
       var reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (_event) => {
-        this.imageUrls.push(reader.result! as string);
+        this.images.push(new Image(reader.result! as string));
       }
     };
     input.click();
   }
 
-  bin2String(array: number[]) {
-    return String.fromCharCode.apply(String, array);
+  selectStar(n:number){
+    this.starSelected=n;
   }
 
   page1() {
@@ -147,6 +154,19 @@ export class EvaluateComponent implements OnInit {
 
   page3() {
     return this.selectedPage == this.numPage ? this.selectedPage : this.selectedPage == 1 ? 3 : this.selectedPage + 1
+  }
+
+  submit(){
+    if(this.starSelected==-1){
+      let dialogRef = this.dialog.open(DialogComponent, {
+        width: '20%',
+        data: { text:'Vui lòng chọn số sao bạn nhé!!' }
+      });
+      return;
+    }
+    let evaluationRequest=new EvaluationRequest(1,this.recipeId,this.starSelected+1,this.content,this.note,this.images);
+    this.evaluationService.createEvaluation(evaluationRequest).subscribe();
+    
   }
 
 }

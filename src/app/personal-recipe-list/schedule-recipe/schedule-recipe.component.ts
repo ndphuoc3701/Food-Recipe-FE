@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ListType } from '../personal-recipe-list.component';
 import { Recipe } from 'src/app/model/recipe';
-import { LearntRecipe } from 'src/app/model/learnt-recipe';
+import { LearntRecipe } from 'src/app/model/learntRecipe';
 import { EditPersonalRecipeComponent } from 'src/app/edit-personal-recipe/edit-personal-recipe.component';
 import { MatDialog } from '@angular/material/dialog';
 @Component({

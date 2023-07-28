@@ -3,12 +3,9 @@ import { RecipeSharing } from '../model/recipeSharing';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Ingredient } from '../model/ingredient';
 import { Instruction } from '../model/instruction';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DialogComponent } from '../dialog/dialog.component';
 import { RecipeService } from '../service/recipe.service';
 import { EMPTY_IMAGE_MESSAGE_ERROR, EMPTY_MESSAGE_ERROR } from '../Constant';
-import { RecipeSharingRequest } from '../request/recipe-sharing-request';
-import { IngredientRecipeRequest } from '../request/ingredient-recipe-request';
 import { Image } from '../model/image';
 
 
@@ -48,7 +45,9 @@ export class RecipeShareFormComponent implements OnInit {
   invalid: boolean = true;
   onSubmit() {
     this.validateInput();
-    this.dialogRef.close(this.recipe);
+    // this.dialogRef.close(this.recipe);
+    console.log(this.recipe);
+    
   }
 
   validateInput() {
@@ -110,9 +109,10 @@ export class RecipeShareFormComponent implements OnInit {
     if (lengthImage > 4) {
       let dialogRef = this.dialog.open(DialogComponent, {
         width: '20%',
-        autoFocus: false
+        autoFocus: false,
+        data: { text:'Bạn chỉ có thể đăng tối đa 5 bức ảnh thôi nhé!!' },
       });
-      return;
+      
     }
     this.uploadImage(instructionIndex);
   }
