@@ -15,7 +15,6 @@ export class YourRecipeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  recipes!: Recipe[];
   constructor(private dialog: MatDialog, private router: Router, private route: ActivatedRoute, public recipeService: RecipeService) { }
   openDialog(): void {
     const dialogRef = this.dialog.open(RecipeShareFormComponent, {
@@ -25,7 +24,9 @@ export class YourRecipeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(recipe => {
-      this.recipeService.createRecipe(recipe).subscribe();
+      this.recipeService.createRecipe(recipe).subscribe((res: Recipe) => {
+        this.recipeService.recipes.unshift(res);
+      });
 
     });
   }

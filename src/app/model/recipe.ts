@@ -8,7 +8,5 @@ export class Recipe {
     public numEvaluation: number,
     public numFavorite: number,
     public createdDate?: string,
-    public learntDate?: string,
-    public scheduledDate?: string
   ) { }
 }

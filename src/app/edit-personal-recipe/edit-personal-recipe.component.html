@@ -1,10 +1,16 @@
-<div mat-dialog-title class="dialog-title pe-0">
-  <div class="fs-3">{{data.scheduledDate==null?'Chỉnh sửa công thức đã học': 'Chỉnh sửa công thức đã lên lịch'}}</div>
+<div mat-dialog-title class="dialog-title">
+  <div class="w-100 text-center fs-3 mt-3">{{data.title}}</div>
 </div>
+<div style="padding: 0 24px;">
+  <img class="d-block mx-auto" src={{data.recipeImage}} style="width: 70%; height: 285px;">
+  <div class="fs-4 mt-2">{{data.recipeName}}</div>
+</div>
+
+
 <mat-dialog-content>
-  <mat-form-field *ngIf="data.scheduledDate!=null" class="w-100 mb-1">
+  <mat-form-field *ngIf="data.title!='Chỉnh sửa ghi chú món ăn đã học'" class="w-100 mb-1">
     <mat-label>Thời gian lên lịch</mat-label>
-    <input matNativeControl type="datetime-local" [(ngModel)]="data.scheduledDate">
+    <input matNativeControl type="datetime-local" [(ngModel)]="data.scheduledTime">
   </mat-form-field>
 
   <mat-form-field class="w-100">
@@ -16,6 +22,6 @@
 <mat-dialog-actions style="padding-right: 25px;" class="justify-content-end">
   <button class="rounded-1 bg-warning border-warning text-white" [mat-dialog-close]="data"
     mat-raised-button>Lưu</button>
-  <button class="rounded-1 text-white" mat-dialog-close style="background-color: #b9b9b9;"
+  <button class="rounded-1 text-white" [mat-dialog-close]="null" style="background-color: #b9b9b9;"
     mat-raised-button>Huỷ</button>
 </mat-dialog-actions>

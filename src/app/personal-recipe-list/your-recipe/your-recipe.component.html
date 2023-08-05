@@ -1,4 +1,5 @@
-<button mat-raised-button (click)="openDialog()">Pick one</button>
+<!-- <button mat-raised-button (click)="openDialog()">Pick one</button> -->
+<div class="fs-3 mb-4">Công thức đã chia sẻ</div>
 
 <div [routerLink]="['/recipes/'+recipe.id]" *ngFor="let recipe of this.recipeService.recipes" class="row p-2 mb-2 item"
   style="cursor: pointer;">

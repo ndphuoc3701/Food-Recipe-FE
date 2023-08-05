@@ -1,0 +1,102 @@
+<div style="background-color: #dedbdb;" class="py-3">
+  <div class="mx-auto bg-white p-3" style="border-radius: 20px; width: 35%;">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="px-0"
+          style="width: 30%; height: 152px;border-radius: 50%; background-repeat: no-repeat; background-size: cover;"
+          [ngStyle]="{'background-image':this.userImage==null? 'url('+this.userInfo!.image+')':'url('+this.userImage+')'}">
+          <div *ngIf="this.userService.userInfo!.id==this.userId" (click)="uploadImage()"
+            class="position-relative w-100 h-100 post-image"
+            style="cursor: pointer; border-radius: 50%; visibility:hidden;">
+            <i class="bi bi-camera vertical-center camera text-white" style="margin: 0;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            font-size: 3em;"></i>
+          </div>
+        </div>
+        <!-- <img src={{this.userInfo!.image}} style="width: 30%; height: 152px;border-radius: 50%;"> -->
+        <mat-dialog-actions *ngIf="this.userImage!=null" class="d-flex justify-content-center">
+          <button style=" margin:5px" class="py-1 rounded-1 bg-warning border-warning text-white"
+            (click)="updateImage()">Lưu</button>
+          <button class="rounded-1 text-white py-1" (click)="this.userImage=null"
+            style="background-color: #b9b9b9; margin:5px" mat-raised-button>Huỷ</button>
+        </mat-dialog-actions>
+        <span class="text-center my-2">{{this.userInfo!.fullName}}</span>
+      </div>
+      <div class=" row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-4">
+          <img src="/assets/icon/cookLevel.png" style="width: 20%">
+          <div class="mt-1 ms-2" style="display: inline-block;">
+            Điểm đầu bếp:
+          </div>
+        </div>
+        <div class="col-sm-6 ps-4 d-flex" style="align-items: center;">
+          <ng-container *ngFor="let item of [0,1,2,3,4]">
+            <i [ngClass]="{'bi-star-fill':this.userInfo!.cookLevel!>=item+0.75,'bi-star-half':this.userInfo!.cookLevel!<item+0.75&&this.userInfo!.cookLevel!>=item+0.25,'bi-star':this.userInfo!.cookLevel!<item+0.25}"
+              class="bi text-warning" style="font-size: larger;"></i>
+          </ng-container>
+        </div>
+      </div>
+      <div class="row mt-2 mb-2">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-4">
+          <img src="/assets/icon/evaluateLevel.png" style="width: 20%">
+          <div class="mt-1 ms-2" style="display: inline-block; margin-right:-0.1em">
+            Điểm đánh giá:
+          </div>
+        </div>
+        <div class="col-sm-6 ps-4 d-flex" style="align-items: center;">
+          <ng-container *ngFor="let item of [0,1,2,3,4]">
+            <i [ngClass]="{'bi-star-fill':this.userInfo!.evaluationLevel!>=item+0.75,'bi-star-half':this.userInfo!.evaluationLevel!<item+0.75&&this.userInfo!.evaluationLevel!>=item+0.25,'bi-star':this.userInfo!.evaluationLevel!<item+0.25}"
+              class="bi text-warning" style="font-size: larger;"></i>
+          </ng-container>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="mx-auto mt-3 bg-white p-3" style="border-radius: 20px; width: 35%;">
+    <div class="container">
+      <app-your-recipe></app-your-recipe>
+    </div>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item" [ngClass]="{'disabled':this.recipeService.selectedPage==1}">
+          <a [routerLink]="['/users',this.userInfo!.id]" [queryParams]="{page:this.recipeService.selectedPage-1}"
+            style="color: black;" class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item">
+          <a [routerLink]="['/users',this.userInfo!.id]" [queryParams]="{page:page1()}"
+            [ngStyle]="{'background-color':this.recipeService.selectedPage==1?'#ffe127':''}" style="color: black;"
+            class="page-link">
+            {{page1()}}
+          </a>
+        </li>
+        <li *ngIf="this.recipeService.numPage>1" class="page-item">
+          <a [routerLink]="['/users',this.userInfo!.id]" [queryParams]="{page:page2()}"
+            [ngStyle]="{'background-color':this.recipeService.selectedPage!=1&&(this.recipeService.selectedPage!=this.recipeService.numPage&&this.recipeService.numPage!=2)||(this.recipeService.selectedPage==this.recipeService.numPage&&this.recipeService.numPage==2)?'#ffe127':''}"
+            style="color: black;" class="page-link">{{page2()}}
+          </a>
+        </li>
+        <li *ngIf="this.recipeService.numPage>2" class="page-item">
+          <a [routerLink]="['/users',this.userInfo!.id]" [queryParams]="{page:page3()}"
+            [ngStyle]="{'background-color':this.recipeService.selectedPage==this.recipeService.numPage?'#ffe127':''}"
+            style="color: black;" class="page-link">{{page3()}}
+          </a>
+        </li>
+        <li class="page-item" [ngClass]="{'disabled':this.recipeService.selectedPage==this.recipeService.numPage}">
+          <a [routerLink]="['/users',this.userInfo!.id]" [queryParams]="{page:this.recipeService.selectedPage+1}"
+            style="color: black;" class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

@@ -1,13 +1,13 @@
+<div class="fs-3 mb-4">Công thức đã học</div>
+
 <div [routerLink]="['/recipes/'+learntRecipe.recipe.id]"
-  *ngFor="let learntRecipe of learntRecipes, let learntRecipeIndex=index" class="row p-2 mb-2 item"
+  *ngFor="let learntRecipe of this.recipeService.learntRecipes, let learntRecipeIndex=index" class="row p-2 mb-2 item"
   style="cursor: pointer;">
   <div class="col-sm-12 ">
     <div class="row">
-
-
       <app-common-recipe-list [recipe]="learntRecipe.recipe"></app-common-recipe-list>
     </div>
-    <div class="row edit-item mt-1 p-2" (click)="lol($event)">
+    <div class="row edit-item mt-1 p-2">
       <div class="col-sm-12">
         <div class="row">
           <div class="col-sm-11 ps-0">

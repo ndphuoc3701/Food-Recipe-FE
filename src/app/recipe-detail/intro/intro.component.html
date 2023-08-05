@@ -1,19 +1,32 @@
 <div class="container px-0">
   <div class="row">
     <div class="col-sm-6">
-      <img src="{{recipeDetail.recipe.image}}" class="w-100 h-100">
+      <!-- <img src="{{recipeDetail.recipe.image}}" class="w-100 h-100"> -->
+      <img
+        src="https://images.foody.vn/res/g77/762734/prof/s640x400/foody-upload-api-foody-mobile-4-gif-180725095634.jpg"
+        class="w-100 h-100">
+
     </div>
     <div class="col-sm-6">
       <div class="row">
         <div class="col h1">
-          {{recipeDetail.recipe.name}}</div>
+          <!-- {{recipeDetail.recipe.name}}</div> -->
+          Bún bò
+        </div>
+
       </div>
       <div class="row">
         <div class="col-sm-6">
-          <ng-container *ngFor="let item of [0,1,2,3,4]">
-            <i [ngClass]="{'bi-star-fill':recipeDetail.recipe.numStar>=item+0.75,'bi-star-half':recipeDetail.recipe.numStar<item+0.75&&recipeDetail.recipe.numStar>=item+0.25,'bi-star':recipeDetail.recipe.numStar<item+0.25}"
-              class="bi text-warning" style="font-size: larger;"></i>
-          </ng-container>
+          <i [ngClass]="{'bi-star-fill':recipeDetail.recipe.numStar>=0+0.75,'bi-star-half':recipeDetail.recipe.numStar<0+0.75&&recipeDetail.recipe.numStar>=0+0.25,'bi-star':recipeDetail.recipe.numStar<0+0.25}"
+            class="bi text-warning" style="font-size: larger;"></i>
+          <i [ngClass]="{'bi-star-fill':recipeDetail.recipe.numStar>=1+0.75,'bi-star-half':recipeDetail.recipe.numStar<1+0.75&&recipeDetail.recipe.numStar>=1+0.25,'bi-star':recipeDetail.recipe.numStar<1+0.25}"
+            class="bi text-warning" style="font-size: larger;"></i>
+          <i [ngClass]="{'bi-star-fill':recipeDetail.recipe.numStar>=2+0.75,'bi-star-half':recipeDetail.recipe.numStar<2+0.75&&recipeDetail.recipe.numStar>=2+0.25,'bi-star':recipeDetail.recipe.numStar<2+0.25}"
+            class="bi text-warning" style="font-size: larger;"></i>
+          <i [ngClass]="{'bi-star-fill':recipeDetail.recipe.numStar>=3+0.75,'bi-star-half':recipeDetail.recipe.numStar<3+0.75&&recipeDetail.recipe.numStar>=3+0.25,'bi-star':recipeDetail.recipe.numStar<3+0.25}"
+            class="bi text-warning" style="font-size: larger;"></i>
+          <i [ngClass]="{'bi-star-fill':recipeDetail.recipe.numStar>=4+0.75,'bi-star-half':recipeDetail.recipe.numStar<4+0.75&&recipeDetail.recipe.numStar>=4+0.25,'bi-star':recipeDetail.recipe.numStar<4+0.25}"
+            class="bi text-warning" style="font-size: larger;"></i>
         </div>
         <div class="col-sm-6 my-auto text-end">
           {{recipeDetail.recipe.numEvaluation>1000?toFix(recipeDetail.recipe.numEvaluation)+'k':
@@ -42,9 +55,9 @@
             <div class="container">
               <div class="row">
                 <div class="col-sm-3">
-                  <img src="{{recipeDetail.userInfo.image}}" style="border-radius:50%;" class="w-100">
+                  <img src="{{recipeDetail.user.image}}" style="border-radius:50%; height: 63.55px;" class="w-100">
                 </div>
-                <div class="col-sm-9 my-auto">{{recipeDetail.userInfo.fullName}}</div>
+                <div class="col-sm-9 my-auto">{{recipeDetail.user.fullName}}</div>
               </div>
               <div class="row mt-2">
                 <div class="col-sm-6">
@@ -55,7 +68,7 @@
                 </div>
                 <div class="col-sm-5 ms-auto">
                   <ng-container *ngFor="let item of [0,1,2,3,4]">
-                    <i [ngClass]="{'bi-star-fill':recipeDetail.userInfo.cookLevel!>=item+0.75,'bi-star-half':recipeDetail.userInfo.cookLevel!<item+0.75&&recipeDetail.userInfo.cookLevel!>=item+0.25,'bi-star':recipeDetail.userInfo.cookLevel!<item+0.25}"
+                    <i [ngClass]="{'bi-star-fill':recipeDetail.user.cookLevel!>=item+0.75,'bi-star-half':recipeDetail.user.cookLevel!<item+0.75&&recipeDetail.user.cookLevel!>=item+0.25,'bi-star':recipeDetail.user.cookLevel!<item+0.25}"
                       class="bi text-warning" style="font-size: larger;"></i>
                   </ng-container>
                 </div>
@@ -69,7 +82,7 @@
                 </div>
                 <div class="col-sm-5 ms-auto">
                   <ng-container *ngFor="let item of [0,1,2,3,4]">
-                    <i [ngClass]="{'bi-star-fill':recipeDetail.userInfo.evaluateLevel!>=item+0.75,'bi-star-half':recipeDetail.userInfo.evaluateLevel!<item+0.75&&recipeDetail.userInfo.evaluateLevel!>=item+0.25,'bi-star':recipeDetail.userInfo.evaluateLevel!<item+0.25}"
+                    <i [ngClass]="{'bi-star-fill':recipeDetail.user.evaluationLevel!>=item+0.75,'bi-star-half':recipeDetail.user.evaluationLevel!<item+0.75&&recipeDetail.user.evaluationLevel!>=item+0.25,'bi-star':recipeDetail.user.evaluationLevel!<item+0.25}"
                       class="bi text-warning" style="font-size: larger;"></i>
                   </ng-container>
                 </div>
@@ -83,17 +96,28 @@
 </div>
 <h2 class="mt-5 mb-3">Nguyên liệu:</h2>
 <ul>
-  <li *ngFor="let item of recipeDetail.recipeSharing.ingredients">
+  <!-- <li *ngFor="let item of recipeDetail.recipeSharing.ingredients">
     {{item.quantity +' '+ item.name}}
-  </li>
+  </li> -->
+  <li>1 lạng thịt bò</li>
+  <li>0.5 kg bún</li>
+
 </ul>
 
 <h2 class="mt-5 mb-3">Hướng dẫn chế biến:</h2>
 <ol>
-  <li *ngFor="let instruction of recipeDetail.recipeSharing.instructions">
+  <!-- <li *ngFor="let instruction of recipeDetail.recipeSharing.instructions">
     {{instruction.content}}
     <div class="mt-1 mb-4">
-      <img *ngFor="let image of instruction.images" style="height: 5em;" src={{image}}>
+      <img *ngFor="let image of instruction.images" style="height: 5em;" class="me-1" src={{image.data}}>
+    </div>
+  </li> -->
+
+  <li *ngFor="let instruction of recipeDetail.recipeSharing.instructions">
+    Cắt thịt bò
+    <div class="mt-1 mb-4">
+      <img style="height: 5em;" class="me-1"
+        src="https://afamilycdn.com/150157425591193600/2023/2/9/de-co-mon-thit-bo-xao-mem-va-ngon-1675844959702299585525-1675904690656-1675904692131666232165.jpg">
     </div>
   </li>
 </ol>

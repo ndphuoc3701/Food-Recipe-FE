@@ -1,3 +1,5 @@
+<div class="fs-3 mb-4">Công thức đã lên lịch</div>
+
 <div [routerLink]="['/recipes/'+scheduleRecipe.recipe.id]"
   *ngFor="let scheduleRecipe of scheduleRecipes,let scheduleRecipeIdx=index" class="row p-2 mb-2 item"
   style="cursor: pointer;">
@@ -10,7 +12,7 @@
         <div class="row">
           <div class="col-sm-11 ps-0">
             <i class="clock bi bi-alarm"></i>
-            {{'Lên lịch lúc '+scheduleRecipe.recipe.scheduledDate}}
+            {{'Lên lịch lúc '+scheduleRecipe.scheduleTime}}
           </div>
           <div class="col-sm-1 text-end pe-0">
             <i class="bi bi-pencil-square text-end" style="cursor: pointer;"
@@ -18,9 +20,9 @@
           </div>
         </div>
         <div class="row">
-          <div *ngIf="scheduleRecipe.evaluation.note" class="col-sm-12 ps-0 mt-1">
+          <div *ngIf="scheduleRecipe.note" class="col-sm-12 ps-0 mt-1">
             <i class="bi bi-sticky me-1"></i>
-            {{'Ghi chú: '+scheduleRecipe.evaluation.note}}
+            {{'Ghi chú: '+scheduleRecipe.note}}
           </div>
         </div>
       </div>

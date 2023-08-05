@@ -17,7 +17,7 @@ import { EvaluationRequest } from 'src/app/request/evaluation';
 })
 export class EvaluateComponent implements OnInit {
 
-  numPage: number = 5;
+  numPage!: number;
   selectedPage: number = 1;
   recipeId!: number;
   constructor(public dialog: MatDialog, private route: ActivatedRoute, private evaluationService: EvaluationService) { }
@@ -35,46 +35,20 @@ export class EvaluateComponent implements OnInit {
             this.numPage = res.totalPages;
           });
         })
-        // if (this.selectedPage == 2) {
-        //   this.communityEvaluation = [new Evaluation(1, 'ngon', 4, new UserInfo('Nguyen Duy Phong', '/assets/icon/cooker.png'), '3/7/2023 20:00', 100, 50, 3, [], null, null),
-        //   new Evaluation(1, 'dở', 4.4, new UserInfo('Nguyen Ngoc Bao Anh', '/assets/icon/cookLevel.png'), '3/7/2023 21:00', 100, 50, 2, [new Image('/assets/icon/cooker.png'), new Image('/assets/icon/cookLevel.png')], null, null)];
-
-        // }
-        // if (this.selectedPage == 1) {
-        //   this.communityEvaluation = [new Evaluation(1, 'ngon', 4, new UserInfo('Nguyen Duy Phuoc', '/assets/icon/cooker.png'), '3/7/2023 20:00', 100, 50, 3, [], null, null),
-        //   new Evaluation(1, 'dở', 4.4, new UserInfo('Nguyen Ngoc Bao Han', '/assets/icon/cookLevel.png'), '3/7/2023 21:00', 100, 50, 2, [new Image('/assets/icon/cooker.png'), new Image('/assets/icon/cookLevel.png')], null, null)];
-
-        // }
       });
-
-    // this.communityEvaluation.forEach(e => {
-    //   e.images.forEach(i => {
-    //     var reader = new FileReader();
-    //     reader.readAsDataURL(i);
-
-    //     reader.onload = (_event) => {
-    //       e.images.push(reader.result! as string);
-    //     }
-    //   })
-
-    // })
-
   }
 
-  images: Image[] = [new Image('/assets/icon/evaluateLevel.png')];
-  // communityEvaluation: Evaluation[] = [new Evaluation(1, 'ngon', 4, new UserInfo('Nguyen Duy Phuoc', '/assets/icon/cooker.png'), '3/7/2023 20:00', 100, 50, 2, [], null, null),
-  // new Evaluation(1, 'dở', 4.4, new UserInfo('Nguyen Ngoc Bao Han', '/assets/icon/cookLevel.png'), '3/7/2023 21:00', 100, 50, 3, [new Image('/assets/icon/cooker.png'), new Image('/assets/icon/cookLevel.png')], null, null)];
+  images: Image[] = [];
   communityEvaluation!: Evaluation[]
-  // constructor(private imageService: ImageService){}
 
   @ViewChild('evaluationInput') evaluationInputRef!: ElementRef;
   starHovered: number = -1;
 
-  starSelected:number=-1;
+  starSelected: number = -1;
 
-  note!:string;
+  note!: string;
 
-  content!:string;
+  content!: string;
 
   removeImage(imgUrlIdx: number) {
     this.images.splice(imgUrlIdx, 1);
@@ -110,7 +84,7 @@ export class EvaluateComponent implements OnInit {
     if (this.images.length > 4) {
       let dialogRef = this.dialog.open(DialogComponent, {
         width: '20%',
-        data: { text:'Bạn chỉ có thể đăng tối đa 5 bức ảnh thôi nhé!!' },
+        data: { text: 'Bạn chỉ có thể đăng tối đa 5 bức ảnh thôi nhé!!' },
       });
       return;
     }
@@ -140,33 +114,32 @@ export class EvaluateComponent implements OnInit {
     input.click();
   }
 
-  selectStar(n:number){
-    this.starSelected=n;
+  selectStar(n: number) {
+    this.starSelected = n;
   }
 
   page1() {
-    return this.selectedPage == 1 ? 1 : this.selectedPage == this.numPage ? this.numPage - 2 : this.selectedPage - 1
+    return this.selectedPage == 1 ? 1 : this.selectedPage == this.numPage && this.numPage != 2 ? this.numPage - 2 : this.selectedPage - 1
   }
 
   page2() {
-    return this.selectedPage == 1 ? 2 : this.selectedPage == this.numPage ? this.selectedPage - 1 : this.selectedPage
+    return this.selectedPage == 1 ? 2 : this.selectedPage == this.numPage && this.numPage != 2 ? this.selectedPage - 1 : this.selectedPage
   }
 
   page3() {
     return this.selectedPage == this.numPage ? this.selectedPage : this.selectedPage == 1 ? 3 : this.selectedPage + 1
   }
 
-  submit(){
-    if(this.starSelected==-1){
+  submit() {
+    if (this.starSelected == -1) {
       let dialogRef = this.dialog.open(DialogComponent, {
         width: '20%',
-        data: { text:'Vui lòng chọn số sao bạn nhé!!' }
+        data: { text: 'Vui lòng chọn số sao bạn nhé!!' }
       });
       return;
     }
-    let evaluationRequest=new EvaluationRequest(1,this.recipeId,this.starSelected+1,this.content,this.note,this.images);
-    this.evaluationService.createEvaluation(evaluationRequest).subscribe();
-    
+    let evaluationRequest = new EvaluationRequest(1, this.recipeId, this.starSelected + 1, this.content, this.note, this.images);
+    this.evaluationService.createEvaluation(evaluationRequest).subscribe(evaluation => this.communityEvaluation.unshift(evaluation));
   }
 
 }

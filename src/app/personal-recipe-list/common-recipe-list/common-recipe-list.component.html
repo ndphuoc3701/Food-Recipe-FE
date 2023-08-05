@@ -7,7 +7,8 @@
       <div class="" [ngClass]=" (isClock?'col-sm-10':'col-sm-12')+' h1 p-0'">
         {{recipe.name}}
       </div>
-      <div *ngIf="isClock" style="border-radius: 50%; width: 45px; height: 45px;right:0"
+      <div *ngIf="isClock" (click)="clickClock($event,recipe.name,recipe.image)"
+        style="border-radius: 50%; width: 45px; height: 45px;right:0"
         class="col-sm-2 p-0 position-relative bg-warning ms-auto">
         <i class="clock bi bi-alarm position-absolute" style="  margin: 0;
             position: absolute;

@@ -6,6 +6,7 @@ import { UserLogin } from '../model/userLogin';
 import { filter } from 'rxjs';
 import { error } from 'jquery';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UserInfo } from '../model/user-info';
 
 @Component({
   selector: 'app-login',
@@ -83,10 +84,10 @@ export class LoginComponent implements OnInit {
   submit() {
     if (this.validateInput()) {
       if (this.isLogin) {
-        this.userService.login(new UserLogin(this.fullName, this.username, this.password, this.userImage)).subscribe({
-          next: (userLogin: UserLogin) => {
+        this.userService.login(new UserInfo(null, this.fullName, this.username, this.password, this.userImage)).subscribe({
+          next: (userInfo: UserInfo) => {
             this.isAuthenticateSuccess = true;
-            this.userService.isLoggedInSubject.next(userLogin);
+            this.userService.isLoggedInSubject.next(userInfo);
           },
           error: (error: HttpErrorResponse) => {
             if (error.status == 404) {
@@ -96,10 +97,10 @@ export class LoginComponent implements OnInit {
         })
       }
       else {
-        this.userService.signUp(new UserLogin(this.fullName, this.username, this.password, this.userImage)).subscribe(({
-          next: (userLogin: UserLogin) => {
+        this.userService.signUp(new UserInfo(null, this.fullName, this.username, this.password, this.userImage)).subscribe(({
+          next: (userInfo: UserInfo) => {
             this.isAuthenticateSuccess = true;
-            this.userService.isLoggedInSubject.next(userLogin);
+            this.userService.isLoggedInSubject.next(userInfo);
           },
           error: (error: HttpErrorResponse) => {
             if (error.status == 409) {

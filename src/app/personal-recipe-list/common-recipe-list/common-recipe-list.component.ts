@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Recipe } from '../../model/recipe';
 import { ListType } from '../personal-recipe-list.component';
+import { RecipeService } from 'src/app/service/recipe.service';
+import { Router } from '@angular/router';
 
 export class ClassName {
   readonly ListType = ListType;
@@ -13,30 +15,10 @@ export class ClassName {
 })
 export class CommonRecipeListComponent implements OnInit {
   ngOnInit(): void {
-    this.isClock = this.recipe.scheduledDate == null;
-    // switch (this.listType) {
-
-
-    //   case ListType.Your: {
-    //     this.date = 'Đăng ngày ' + this.recipe.createdDate;
-    //     break;
-    //   }
-    //   case ListType.Favorite: {
-    //     this.date = 'Đăng ngày ' + this.recipe.createdDate;
-    //     this.isClock = true;
-    //     break;
-    //   }
-    //   case ListType.Learn: {
-    //     this.date = 'Học ngày ' + this.recipe.learntDate;
-    //     this.isClock = true;
-    //     break;
-    //   }
-    //   case ListType.Schedule: {
-    //     this.date = 'Lên lịch ngày ' + this.recipe.scheduledDate;
-    //     break;
-    //   }
-    // }
+    this.isClock = !this.router.url.includes('scheduled-recipes');
   }
+
+  constructor(private recipeService: RecipeService, private router: Router) { }
   @Input() recipe!: Recipe;
   favoriteHover: boolean = false;
   date!: string;
@@ -58,5 +40,10 @@ export class CommonRecipeListComponent implements OnInit {
   clickFavorite() {
     this.recipe.favorite = !this.recipe.favorite;
     this.favoriteHover = false
+  }
+
+  clickClock(event: any, recipeName: string, recipeImage: string) {
+    event.stopImmediatePropagation();
+    this.recipeService.openScheduleDialog(recipeName, recipeImage);
   }
 }

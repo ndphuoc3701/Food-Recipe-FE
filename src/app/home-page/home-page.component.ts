@@ -14,6 +14,10 @@ export class HomePageComponent implements OnInit {
       .subscribe(params => {
 
         this.selectedPage = +params['page'];
+        this.searchIngredient = params['ingredient']
+        this.filter = params['filter']
+        console.log(this.searchIngredient);
+
         if (isNaN(this.selectedPage)) {
           this.selectedPage = 1;
         }
@@ -23,17 +27,12 @@ export class HomePageComponent implements OnInit {
         });
       });
   }
-  // recipes: Recipe[] = [
-  //   new Recipe(1, "Bò hầm", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", true, 4.25, 1002, 50, ''),
-  //   new Recipe(2, "Heo hầm", "/assets/recipe/z4459772476120_e4ad895886890eebd49855cbfe6baa39.jpg", false, 3.25, 1102, 50, ''),
-  //   new Recipe(3, "Gà hầm", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", false, 4.15, 923, 50, ''),
-  //   new Recipe(4, "Vịt hầm", "/assets/recipe/z4459772476120_e4ad895886890eebd49855cbfe6baa39.jpg", true, 4.75, 75, 50, ''),
-  //   new Recipe(5, "Vịt hầm", "/assets/recipe/z4459772476120_e4ad895886890eebd49855cbfe6baa39.jpg", true, 3.65, 19021, 50, ''),
 
-  // ]
   recipes!: Recipe[];
   selectedPage: number = 1;
   numPage!: number;
+  searchIngredient!: string;
+  filter!: string;
 
   constructor(private router: Router, private route: ActivatedRoute, private recipeService: RecipeService) { }
 
@@ -47,5 +46,27 @@ export class HomePageComponent implements OnInit {
 
   page3() {
     return this.selectedPage == this.numPage ? this.selectedPage : this.selectedPage == 1 ? 3 : this.selectedPage + 1;
+  }
+
+  searchByIngredient(ingredient: string) {
+    // changes the route without moving from the current view or
+    // triggering a navigation event,
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        ingredient: ingredient
+      },
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  searchByFilter(filter: string) {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        filter: filter
+      },
+      queryParamsHandling: 'merge',
+    });
   }
 }

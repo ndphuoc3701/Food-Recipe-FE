@@ -1,23 +1,40 @@
 <div style="width:40%;" class="m-auto mt-5 mb-3 input-group">
-  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
-    aria-describedby="basic-addon2">
-  <div class="input-group-append">
+  <input type="text" class="form-control" placeholder="Tên món ăn bạn muốn tìm" aria-describedby="basic-addon2">
+  <div class="input-group-append" style="z-index: 0;">
     <button style="background-color: #ffe127;" class="btn" type="button"><i class="bi bi-search"></i></button>
   </div>
 </div>
-<div class="d-flex flex-row justify-content-center mb-5">
+<div class="d-flex flex-row justify-content-center mb-3">
   <div class="me-3">Nguyên liệu chính:</div>
-  <div style="background-color: #ffe127; border-radius: 10px; cursor: pointer;" class="me-3 px-3">Heo</div>
-  <div style="background-color: #ffe127; border-radius: 10px; cursor: pointer;" class="me-3 px-3">Bò</div>
-  <div style="background-color: #ffe127; border-radius: 10px; cursor: pointer;" class="me-3 px-3">Gà</div>
-  <div style="background-color: #ffe127; border-radius: 10px; cursor: pointer;" class="me-3 px-3">Cá</div>
+  <div (click)="searchByIngredient('heo')"
+    [ngStyle]="{'background-color':(this.searchIngredient=='heo')?'rgb(189 162 0)': '#ffe127', 'color':(this.searchIngredient=='heo')?'white':'black'}"
+    style="border-radius: 10px; cursor: pointer;" class="me-3 px-3">Heo</div>
+  <div (click)="searchByIngredient('bo')"
+    [ngStyle]="{'background-color':(this.searchIngredient=='bo')?'rgb(189 162 0)': '#ffe127', 'color':(this.searchIngredient=='bo')?'white':'black'}"
+    style="border-radius: 10px; cursor: pointer;" class="me-3 px-3">Bò</div>
+  <div (click)="searchByIngredient('ga')"
+    [ngStyle]="{'background-color':(this.searchIngredient=='ga')?'rgb(189 162 0)': '#ffe127', 'color':(this.searchIngredient=='ga')?'white':'black'}"
+    style="border-radius: 10px; cursor: pointer;" class="me-3 px-3">Gà</div>
+  <div (click)="searchByIngredient('ca')"
+    [ngStyle]="{'background-color':(this.searchIngredient=='ca')?'rgb(189 162 0)': '#ffe127', 'color':(this.searchIngredient=='ca')?'white':'black'}"
+    style="border-radius: 10px; cursor: pointer;" class="me-3 px-3">Cá</div>
 
 </div>
+<div class="d-flex flex-row justify-content-center mb-5">
+  <div class="me-3">Sắp xếp theo:</div>
+  <div (click)="searchByFilter('popular')"
+    [ngStyle]="{'background-color':(this.filter=='popular')?'rgb(189 162 0)': '#ffe127', 'color':(this.filter=='popular')?'white':'black'}"
+    style="border-radius: 10px; cursor: pointer;" class="me-3 px-3">Độ phổ biến</div>
+  <div (click)="searchByFilter('numStar')"
+    [ngStyle]="{'background-color':(this.filter=='numStar')?'rgb(189 162 0)': '#ffe127', 'color':(this.filter=='numStar')?'white':'black'}"
+    style="background-color: #ffe127; border-radius: 10px; cursor: pointer;" class="me-3 px-3">Đánh giá</div>
+</div>
+
 <div class="grid-container container">
   <app-recipe-item [recipe]="item" *ngFor="let item of recipes"></app-recipe-item>
 </div>
 <nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
+  <ul class="pagination justify-content-center my-2">
     <li class="page-item" [ngClass]="{'disabled':selectedPage==1}">
       <a [routerLink]="['/']" [queryParams]="{page:selectedPage-1}" style="color: black;" class="page-link" href="#"
         aria-label="Previous">

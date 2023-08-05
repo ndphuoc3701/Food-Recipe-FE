@@ -1,0 +1,6 @@
+.px-0:hover>.post-image {
+  background-color: black;
+  opacity: 0.7;
+  visibility: visible !important;
+  /* display: block */
+}

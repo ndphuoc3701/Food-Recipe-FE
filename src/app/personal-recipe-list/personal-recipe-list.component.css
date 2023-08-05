@@ -3,16 +3,18 @@
 } */
 
 .item:hover {
-  background-color: #fff7c4;
+  background-color: #fef2a9;
 }
 
 
 .item {
-  border: 5px solid #fff7c4;
+  border: 5px solid #fef2a9;
   border-radius: 20px;
 }
 
 .edit-item {
+  border-style: solid;
+  border-color: #ffd460;
   border-radius: 10px;
   cursor: default;
 }
@@ -22,5 +24,17 @@
   background-color: #fff7e1;
 } */
 .edit-item:hover {
-  background-color: #fbdc88;
+  background-color: #ffd460;
+}
+
+.add-recipe {
+  cursor: pointer;
+  width: 70%;
+  height: 70%;
+}
+
+.add-recipe:hover {
+  transition: width 0.5s, height 0.5s;
+  width: 80%;
+  height: 80%;
 }

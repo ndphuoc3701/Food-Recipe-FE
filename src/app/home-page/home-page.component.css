@@ -2,6 +2,6 @@
   display: grid;
   grid-template-columns: auto auto auto auto;
   /* justify-content: space-between; */
-  column-gap: 40px;
-  row-gap: 50px;
+  column-gap: 50px;
+  row-gap: 70px;
 }

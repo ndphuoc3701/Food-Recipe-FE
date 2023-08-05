@@ -24,11 +24,12 @@ import { CommonRecipeListComponent } from './personal-recipe-list/common-recipe-
 import { PersonalRecipeListComponent } from './personal-recipe-list/personal-recipe-list.component';
 import { LearntRecipeComponent } from './personal-recipe-list/learnt-recipe/learnt-recipe.component';
 import { ScheduleRecipeComponent } from './personal-recipe-list/schedule-recipe/schedule-recipe.component';
-import { EditPersonalRecipeComponent } from './edit-personal-recipe/edit-personal-recipe.component';
+import { ScheduleRecipeFormComponent } from './edit-personal-recipe/edit-personal-recipe.component';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -46,8 +47,9 @@ import { HttpClientModule } from '@angular/common/http';
     PersonalRecipeListComponent,
     LearntRecipeComponent,
     ScheduleRecipeComponent,
-    EditPersonalRecipeComponent,
+    ScheduleRecipeFormComponent,
     LoginComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,7 @@ import { PersonalRecipeListComponent } from './personal-recipe-list/personal-rec
 import { LearntRecipeComponent } from './personal-recipe-list/learnt-recipe/learnt-recipe.component';
 import { ScheduleRecipeComponent } from './personal-recipe-list/schedule-recipe/schedule-recipe.component';
 import { LoginComponent } from './login/login.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
   {
@@ -24,8 +25,8 @@ const routes: Routes = [
     path: 'personal-recipes', component: PersonalRecipeListComponent, children: [
       { path: 'your-recipes', component: YourRecipeComponent },
       { path: 'favorite-recipes', component: YourRecipeComponent },
-      { path: 'learn-recipes', component: LearntRecipeComponent },
-      { path: 'schedule-recipes', component: ScheduleRecipeComponent }
+      { path: 'learnt-recipes', component: LearntRecipeComponent },
+      { path: 'scheduled-recipes', component: ScheduleRecipeComponent }
     ]
   }
   ,
@@ -36,6 +37,9 @@ const routes: Routes = [
     path: 'recipes/:id', component: RecipeDetailComponent, children: [
       { path: '', component: EvaluateComponent }
     ]
+  },
+  {
+    path: 'users/:id', component: UserProfileComponent
   }
 ];
 

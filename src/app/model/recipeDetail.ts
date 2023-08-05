@@ -5,5 +5,5 @@ import { RecipeSharing } from "./recipeSharing";
 import { UserInfo } from "./user-info";
 
 export class RecipeDetail {
-  constructor(public recipe: Recipe, public userInfo: UserInfo, public recipeSharing: RecipeSharing) { }
+  constructor(public recipe: Recipe, public user: UserInfo, public recipeSharing: RecipeSharing) { }
 }

@@ -6,10 +6,13 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   templateUrl: './edit-personal-recipe.component.html',
   styleUrls: ['./edit-personal-recipe.component.css']
 })
-export class EditPersonalRecipeComponent {
+export class ScheduleRecipeFormComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: {
-    recipeIdx: number
-    scheduledDate: string,
+    title: string
+    recipeIdx: number,
+    recipeImage: string,
+    recipeName: string,
+    scheduledTime: string,
     note: string
   }) { }
 }

@@ -1,9 +1,9 @@
 <div class="my-shadow rounded-2" style="cursor: pointer;" [routerLink]="['/recipes/'+recipe.id]">
   <img style="max-width: 100%;
-height: auto;" src={{recipe.image}}>
+height: 286.5px;" src={{recipe.image}}>
   <div class="px-1 pb-1">
     <div class="float-start">{{recipe.name}}</div>
-    <div style="cursor: pointer;" (click)="clickFavorite()" (mouseenter)="mouseEnterFavorite()"
+    <div style="cursor: pointer;" (click)="clickFavorite($event)" (mouseenter)="mouseEnterFavorite()"
       (mouseleave)="mouseLeaveFavorite()" class="float-end text-danger"
       [ngClass]="{'bi-heart-fill':recipe.favorite||favoriteHover, 'bi-heart':!recipe.favorite&&!favoriteHover}">
     </div>

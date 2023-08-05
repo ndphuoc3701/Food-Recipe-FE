@@ -3,50 +3,49 @@
   <div class="text-center mb-3" style="font-size:xx-large">
     <ng-container *ngFor="let item of [0,1,2,3,4]">
       <i (mouseenter)="hoverStar(item)" (mouseleave)="unhoverStar()" (click)="selectStar(item)"
-        [ngClass]="{'bi-star-fill':item<=starHovered||item<=starSelected,'bi-star':item>starHovered&&item>starSelected}" class="bi text-warning"
-        style="cursor: pointer"></i>
+        [ngClass]="{'bi-star-fill':item<=starHovered||item<=starSelected,'bi-star':item>starHovered&&item>starSelected}"
+        class="bi text-warning" style="cursor: pointer"></i>
     </ng-container>
   </div>
   <mat-dialog-content>
-  <div class="form-group mb-2">
+    <div class="form-group mb-2">
       <mat-form-field class="w-100">
         <mat-label>Cảm nhận của bạn</mat-label>
-        <textarea matInput [(ngModel)]=content
-      placeholder="Vd: Ngon tuyệt" type="text"
-      ></textarea>
+        <textarea matInput [(ngModel)]=content placeholder="Vd: Ngon tuyệt" type="text"></textarea>
       </mat-form-field>
       <mat-form-field class="w-100">
         <mat-label>Ghi chú (nội dung này chỉ xuất hiện trong công thức đã học của bạn)</mat-label>
         <input matInput [(ngModel)]=note>
       </mat-form-field>
-  </div>
-  <div class="d-flex">
-    <div *ngFor="let image of this.images;let imageIndex =index" class="me-1 position-relative">
-      <img src={{image.data}} class="" style="width: 5em;height: 5em;">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" (click)="removeImage(imageIndex)"
-        class="text-white bi bi-x position-absolute"
-        style="top:0;right:0;width: 1.5em;height:1.5em;background-color: dimgray;" viewBox="0 0 16 16">
-        <path
-          d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-      </svg>
     </div>
-    <div (click)="uploadImage()" style="border-style: dotted;width: 5em;height: 5em; position: relative; cursor: pointer;"
-      >
-      <i class="bi bi-camera vertical-center" style=" font-size: 3em;"></i>
+    <div class="d-flex">
+      <div *ngFor="let image of this.images;let imageIndex =index" class="me-1 position-relative">
+        <img src={{image.data}} class="" style="width: 5em;height: 5em;">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" (click)="removeImage(imageIndex)"
+          class="text-white bi bi-x position-absolute"
+          style="top:0;right:0;width: 1.5em;height:1.5em;background-color: dimgray;" viewBox="0 0 16 16">
+          <path
+            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+        </svg>
+      </div>
+      <div (click)="uploadImage()"
+        style="border-style: dotted;width: 5em;height: 5em; position: relative; cursor: pointer;">
+        <i class="bi bi-camera vertical-center" style=" font-size: 3em;"></i>
+      </div>
     </div>
-  </div>
-</mat-dialog-content>
-  <div class="d-flex flex-row-reverse">
-    <button (click)="submit()" style="width: 15%;" class="rounded-1 ms-1 bg-warning border-warning text-white">Đánh
-      giá</button>
-    <button (click)="uploadImage()" style="width: 15%;" class="bg-white rounded-1 text-warning border-warning">Thêm
-      ảnh</button>
-  </div>
+  </mat-dialog-content>
+  <mat-dialog-actions style="display:flex; padding-right: 25px;" class="justify-content-end">
+
+    <button class="rounded-1 bg-warning border-warning text-white" (click)="submit()" mat-raised-button>Đăng
+      bài</button>
+  </mat-dialog-actions>
+  <!-- <button (click)="submit()" style="width: 15%;" class="rounded-1 ms-1 bg-warning border-warning text-white">Đánh
+      giá</button> -->
 </div>
 <div class="container rounded-3" style="background-color: #f6f0d6;">
   <div *ngFor="let evaluation of communityEvaluation" class="border-bottom py-2">
     <div class="d-flex">
-      <div style="width: 5%; margin-right: 1%;">
+      <div style="width: 61.6px; margin-right: 1%;">
         <img src={{evaluation.user.image}} style=" border-radius: 50%;width:100%;height:100%">
       </div>
       <div style="font-size: smaller;">
@@ -58,13 +57,13 @@
         <div style="color:#c6c6c6">{{evaluation.createdDate}}</div>
       </div>
     </div>
-    <div style="margin-left:6%">
-      <div *ngIf="images.length>0" class="d-flex">
+    <div style="margin-left:61.6px">
+      <div class="my-2">{{evaluation.content}}</div>
+      <div *ngIf="evaluation.images.length>0" class="d-flex mb-2">
         <div *ngFor="let item of evaluation.images" class="me-1">
           <img src={{item.data}} class="" style="width: 5em;height: 5em;">
         </div>
       </div>
-      <div class="my-2">{{evaluation.content}}</div>
       <div class="d-flex" style="font-size: smaller;align-items: center;">
         <i (click)="clickLike(evaluation)" class="fs-5 fa fa-thumbs-up like"
           [ngClass]="{'text-warning':evaluation.isLike}"></i>
@@ -92,8 +91,8 @@
     </li>
     <li *ngIf="numPage>1" class="page-item">
       <a [routerLink]="['/recipes/',recipeId]" [queryParams]="{page:page2()}"
-        [ngStyle]="{'background-color':selectedPage!=1&&selectedPage!=numPage?'#ffe127':''}" style="color: black;"
-        class="page-link">{{page2()}}
+        [ngStyle]="{'background-color':selectedPage!=1&&(selectedPage!=numPage&&numPage>2||numPage<=2)?'#ffe127':''}"
+        style="color: black;" class="page-link">{{page2()}}
       </a>
     </li>
     <li *ngIf="numPage>2" class="page-item">

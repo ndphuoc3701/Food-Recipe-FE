@@ -24,7 +24,8 @@ export class RecipeItemComponent {
     this.favoriteHover = false;
   }
 
-  clickFavorite() {
+  clickFavorite(event: any) {
+    event.stopImmediatePropagation();
     this.recipe.favorite = !this.recipe.favorite;
     this.favoriteHover = false;
     this.recipeService.addFavoriteRecipe(1, 6).subscribe();

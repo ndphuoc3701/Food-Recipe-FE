@@ -33,32 +33,35 @@ export class RecipeShareFormComponent implements OnInit {
 
   constructor(private dialog: MatDialog, private dialogRef: MatDialogRef<RecipeShareFormComponent>, private recipeService: RecipeService) { }
   ngOnInit(): void {
-    // this.form = this.fb.group({
-    //   name: this.recipe.name,
-    //   instruction1: this.recipe.instructions[0].step
-    // })
-
   }
   recipe: RecipeSharing = new RecipeSharing('', '', [new Ingredient('', '')], [new Instruction('', 1, [])], 2);
-  // recipe:RecipeSharingRequest =new RecipeSharingRequest('','');
-  // recipeSharingRequest:RecipeSharingRequest=new RecipeSharingRequest('','',[new IngredientRecipeRequest('','')],[new Ins] )
   invalid: boolean = true;
   onSubmit() {
-    this.validateInput();
-    // this.dialogRef.close(this.recipe);
-    console.log(this.recipe);
-    
+    if (!this.validateInput()) return;
+    this.dialogRef.close(this.recipe);
   }
 
   validateInput() {
     this.validateName();
+    let validateInstruction = true;
     for (let i = 0; i < this.recipe.instructions.length; i++) {
-      this.validateInstruction(i);
+      if (!this.validateInstruction(i)) {
+        validateInstruction = false;
+      };
     }
+    let validateIngredient = true;
     for (let i = 0; i < this.recipe.ingredients.length; i++) {
-      this.validateIngredient(i);
+      if (!this.validateIngredient(i)) {
+        validateIngredient = false;
+      }
     }
     this.validateImage();
+    console.log(this.validate);
+
+    if (!this.validate.name || !this.validate.image || !validateInstruction || !validateIngredient) {
+      return false;
+    }
+    return true;
   }
 
   validateName() {
@@ -66,25 +69,36 @@ export class RecipeShareFormComponent implements OnInit {
       this.validate.name = false;
     }
     else this.validate.name = true;
+    return this.validate.name;
   }
 
   validateIngredient(ingredientIndex: number) {
-    if (this.recipe.ingredients[ingredientIndex].quantity == '' || this.recipe.ingredients[ingredientIndex].name == '')
+    let validate = true;
+    if (this.recipe.ingredients[ingredientIndex].quantity == '' || this.recipe.ingredients[ingredientIndex].name == '') {
       this.validate.ingredients[ingredientIndex] = false;
+      validate = false;
+    }
     else this.validate.ingredients[ingredientIndex] = true;
+    return validate;
   }
 
   validateInstruction(instructionIndex: number) {
-    if (this.recipe.instructions[instructionIndex].content == '')
+    let validate = true;
+    if (this.recipe.instructions[instructionIndex].content == '') {
       this.validate.instructions[instructionIndex] = false;
+      validate = false;
+    }
     else this.validate.instructions[instructionIndex] = true;
+    return validate;
   }
 
   validateImage() {
     if (this.recipe.image == '')
       this.validate.image = false;
     else this.validate.image = true;
+    return this.validate.image;
   }
+
   addIngredient() {
     this.recipe.ingredients.push(new Ingredient('', ''));
     this.validate.ingredients.push(true);
@@ -110,9 +124,9 @@ export class RecipeShareFormComponent implements OnInit {
       let dialogRef = this.dialog.open(DialogComponent, {
         width: '20%',
         autoFocus: false,
-        data: { text:'Bạn chỉ có thể đăng tối đa 5 bức ảnh thôi nhé!!' },
+        data: { text: 'Bạn chỉ có thể đăng tối đa 5 bức ảnh thôi nhé!!' },
       });
-      
+
     }
     this.uploadImage(instructionIndex);
   }
@@ -142,12 +156,6 @@ export class RecipeShareFormComponent implements OnInit {
         if (instructionIndex != null)
           this.recipe.instructions[instructionIndex].images.push(new Image(reader.result! as string));
         else this.recipe.image = reader.result! as string;
-        // this.recipeService.postImage(reader.result as string).subscribe(
-        //   res => {
-        //     console.log(res.encodedImage);
-        //     this.recipe.instructions[1].images.push(res.encodedImage);
-        //   }
-        // )
       }
     };
     input.click();

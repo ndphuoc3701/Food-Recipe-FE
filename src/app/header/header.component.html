@@ -1,4 +1,4 @@
-<nav *ngIf="userLogin" style="top:0; z-index: 1;"
+<nav *ngIf="this.userService.userInfo" style="top:0; z-index: 1;"
   class=" py-0 navbar navbar-expand-lg navbar-light header position-sticky">
   <div class="container-fluid">
     <a style="font-family:fantasy;" class="navbar-brand" href="#">Yum Yum</a>
@@ -16,9 +16,9 @@
           [routerLink]="['/personal-recipes/favorite-recipes']">Favorite
         </a>
         <a class="nav-link" routerLinkActive="active-link"
-          [routerLink]="['/personal-recipes//learn-recipes']">Learning</a>
+          [routerLink]="['/personal-recipes/learnt-recipes']">Learning</a>
         <a class="nav-link" routerLinkActive="active-link"
-          [routerLink]="['/personal-recipes/schedule-recipes']">Scheduling</a>
+          [routerLink]="['/personal-recipes/scheduled-recipes']">Scheduling</a>
       </div>
     </div>
     <div class="dropdown">
@@ -29,12 +29,12 @@
       </div> -->
       <div class="header dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
         aria-expanded="false">
-        Welcome, {{userLogin.fullName}} <img src={{userLogin.image}}
+        Welcome, {{this.userService.userInfo.fullName}} <img src={{this.userService.userInfo.image}}
           style="height: 35px; width: 35px;border-radius: 50%; background-color: white;">
       </div>
       <ul class="dropdown-menu" style="min-width: 130px;" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="#">Hồ sơ của tôi</a></li>
-        <li><a class="dropdown-item" (click)="logOut()">Đăng xuất</a></li>
+        <li><a class="dropdown-item" href="/users/{{this.userService.userInfo.id}}">Hồ sơ của tôi</a></li>
+        <li><a class="dropdown-item" style="cursor: pointer;" (click)="logOut()">Đăng xuất</a></li>
       </ul>
     </div>
   </div>

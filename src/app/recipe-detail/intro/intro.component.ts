@@ -10,6 +10,8 @@ import { RecipeDetail } from 'src/app/model/recipeDetail';
 export class IntroComponent {
   @Input() recipeDetail!: RecipeDetail
 
+
+
   toFix(n: number): string {
     let m = n / 1000;
     return m.toFixed(1);
@@ -18,6 +20,8 @@ export class IntroComponent {
   favoriteHover: boolean = false;
 
   mouseEnterFavorite() {
+    console.log(this.recipeDetail);
+
     this.favoriteHover = true;
   }
 

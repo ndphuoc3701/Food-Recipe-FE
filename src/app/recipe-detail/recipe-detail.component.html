@@ -1,19 +1,23 @@
 <div style="background-color: #dedbdb;">
   <div class="m-auto bg-white p-3" style="width: 50%;">
     <app-intro [recipeDetail]="recipeDetail"></app-intro>
-    <div style="">
-    <div style="border-radius: 50%; width: 60px; height: 60px;left:65%;top:74%;z-index: 1;" class="position-fixed bg-warning">
-      <i class="clock bi bi-alarm position-absolute" style="  margin: 0;
+    <div>
+      <div (click)="clickClock(recipeDetail.recipe.name,recipeDetail.recipe.image)"
+        style="border-radius: 50%; width: 60px; height: 60px;left:80%;top:74%;z-index: 1; cursor: pointer;"
+        class="position-fixed bg-warning">
+        <i class="clock bi bi-alarm position-absolute" style="  margin: 0;
         position: absolute;
         top: 50%;
         left: 50%;
         -ms-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);font-size: 40px;
         "></i>
-    </div>
-    <img id="lol" src="/assets/icon/schedule.png" class="position-fixed" style="left: 67.7%; top:63%; width: 123px;z-index: 1;">
-    <div class="position-fixed text-center"
-      style="font-size: smaller; font-style: italic; left: 69%; top:66%; width: 85px;z-index: 1;">Đặt lịch cho món này!!</div>
+      </div>
+      <img id="lol" src="/assets/icon/schedule.png" class="position-fixed"
+        style="left: 82.7%; top:63%; width: 123px;z-index: 1;">
+      <div class="position-fixed text-center"
+        style="font-size: smaller; font-style: italic; left: 84%; top:66%; width: 85px;z-index: 1;">Đặt lịch cho món
+        này!!</div>
     </div>
     <router-outlet></router-outlet>
   </div>
