@@ -33,6 +33,7 @@ export class HomePageComponent implements OnInit {
   numPage!: number;
   searchIngredient!: string;
   filter!: string;
+  keyword!: string;
 
   constructor(private router: Router, private route: ActivatedRoute, private recipeService: RecipeService) { }
 
@@ -68,5 +69,10 @@ export class HomePageComponent implements OnInit {
       },
       queryParamsHandling: 'merge',
     });
+  }
+
+  searchByKeyword() {
+    this.recipeService.getRecipeByKeyWord(this.keyword, 0);
+
   }
 }
