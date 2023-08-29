@@ -1,3 +1,7 @@
+<audio #myAudio>
+  <source src="/assets/schedule.wav" type="audio/ogg">
+</audio>
+<button style="display: none;" #myDiv (click)="myAudio.play()">Play</button>
 <nav *ngIf="this.userService.userInfo" style="top:0; z-index: 1;"
   class=" py-0 navbar navbar-expand-lg navbar-light header position-sticky">
   <div class="container-fluid">
@@ -21,12 +25,33 @@
           [routerLink]="['/personal-recipes/scheduled-recipes']">Scheduling</a>
       </div>
     </div>
-    <div class="dropdown">
-      <!-- <div class="header dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-        aria-expanded="false">
-        Welcome, Phuoc <img src="/assets/icon/cooker.png"
-          style="height: 20px; width: 20px;border-radius: 50%; background-color: white;">
-      </div> -->
+    <div class="dropdown d-flex">
+      <div class="position-relative d-flex me-2 align-items-center">
+        <div class="position-absolute text-center"
+          style="right:-20%;top:0;width: 15px;height: 15px; border-radius: 50%; background-color: red;">
+          <div class="position-absolute" style="font-size:small;top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);">
+            {{schedulations.length}}
+          </div>
+
+        </div>
+        <i class="clock bi bi-alarm" style="font-size: 25px;"></i>
+        <div *ngIf="showSchedule" class="position-absolute border border-bottom-0 bg-white"
+          style="width: 250px; top: 38px;right: 0;">
+          <div *ngFor="let schedulation of schedulations" class="border-bottom">
+            <div class="row">
+              <div class="col-sm-3">
+                <img src={{schedulation.image}} style="width: 100%;">
+              </div>
+              <div class="col-sm-9" style="font-weight: 300;">
+                Đã đến giờ nấu món <span style="font-weight: 600;">{{schedulation.name}}</span>
+              </div>
+            </div>
+            <div style="font-weight: 300;font-style: italic; text-align: right;">{{schedulation.scheduleTime}}</div>
+          </div>
+        </div>
+      </div>
       <div class="header dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
         aria-expanded="false">
         Welcome, {{this.userService.userInfo.fullName}} <img src={{this.userService.userInfo.image}}

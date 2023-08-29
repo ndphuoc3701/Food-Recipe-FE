@@ -22,3 +22,8 @@
 .nav-link:hover {
   color: white;
 }
+
+.clock:hover {
+  color: white;
+  cursor: pointer;
+}

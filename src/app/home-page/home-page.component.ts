@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../model/recipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../service/recipe.service';
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
 
 @Component({
   selector: 'app-home-page',
@@ -16,7 +18,8 @@ export class HomePageComponent implements OnInit {
         this.selectedPage = +params['page'];
         this.searchIngredient = params['ingredient']
         this.filter = params['filter']
-        console.log(this.searchIngredient);
+        this.keyword = params['keyword']
+
 
         if (isNaN(this.selectedPage)) {
           this.selectedPage = 1;

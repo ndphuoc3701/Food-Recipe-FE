@@ -44,10 +44,10 @@
       </a>
     </li>
     <li class="page-item">
-      <a [routerLink]="['/']" [queryParams]="{page:page1()}"
+      <div [routerLink]="['/']" [queryParams]="{page:page1()}"
         [ngStyle]="{'background-color':selectedPage==1?'#ffe127':''}" style="color: black;" class="page-link">
         {{page1()}}
-      </a>
+      </div>
     </li>
     <li *ngIf="numPage>1" class="page-item">
       <a [routerLink]="['/']" [queryParams]="{page:page2()}"
@@ -69,3 +69,5 @@
     </li>
   </ul>
 </nav>
+<!-- <app-socket-test></app-socket-test> -->
+lol
