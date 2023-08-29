@@ -9,16 +9,16 @@
 <div class="d-flex flex-row justify-content-center mb-3">
   <div class="me-3">Nguyên liệu chính:</div>
   <div (click)="searchByIngredient('heo')"
-    [ngStyle]="{'background-color':(this.searchIngredient=='heo')?'rgb(189 162 0)': '#ffe127', 'color':(this.searchIngredient=='heo')?'white':'black'}"
+    [ngStyle]="{'background-color':(this.ingredient.includes('heo'))?'rgb(189 162 0)': '#ffe127', 'color':(this.ingredient.includes('heo'))?'white':'black'}"
     style="border-radius: 10px; cursor: pointer;" class="me-3 px-3">Heo</div>
-  <div (click)="searchByIngredient('bo')"
-    [ngStyle]="{'background-color':(this.searchIngredient=='bo')?'rgb(189 162 0)': '#ffe127', 'color':(this.searchIngredient=='bo')?'white':'black'}"
+  <div (click)="searchByIngredient('bò')"
+    [ngStyle]="{'background-color':(this.ingredient.includes('bò'))?'rgb(189 162 0)': '#ffe127', 'color':(this.ingredient.includes('bò'))?'white':'black'}"
     style="border-radius: 10px; cursor: pointer;" class="me-3 px-3">Bò</div>
-  <div (click)="searchByIngredient('ga')"
-    [ngStyle]="{'background-color':(this.searchIngredient=='ga')?'rgb(189 162 0)': '#ffe127', 'color':(this.searchIngredient=='ga')?'white':'black'}"
+  <div (click)="searchByIngredient('gà')"
+    [ngStyle]="{'background-color':(this.ingredient.includes('gà'))?'rgb(189 162 0)': '#ffe127', 'color':(this.ingredient.includes('gà'))?'white':'black'}"
     style="border-radius: 10px; cursor: pointer;" class="me-3 px-3">Gà</div>
-  <div (click)="searchByIngredient('ca')"
-    [ngStyle]="{'background-color':(this.searchIngredient=='ca')?'rgb(189 162 0)': '#ffe127', 'color':(this.searchIngredient=='ca')?'white':'black'}"
+  <div (click)="searchByIngredient('cá')"
+    [ngStyle]="{'background-color':(this.ingredient.includes('cá'))?'rgb(189 162 0)': '#ffe127', 'color':(this.ingredient.includes('cá'))?'white':'black'}"
     style="border-radius: 10px; cursor: pointer;" class="me-3 px-3">Cá</div>
 
 </div>
@@ -38,31 +38,35 @@
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center my-2">
     <li class="page-item" [ngClass]="{'disabled':selectedPage==1}">
-      <a [routerLink]="['/']" [queryParams]="{page:selectedPage-1}" style="color: black;" class="page-link" href="#"
+      <a style="cursor: pointer;" (click)="directPage(selectedPage-1)" style="color: black;" class="page-link" href="#"
         aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
     <li class="page-item">
-      <a [routerLink]="['/']" [queryParams]="{page:page1()}"
+      <!-- <a [routerLink]="['/']" [queryParams]="{page:page1()}"
         [ngStyle]="{'background-color':selectedPage==1?'#ffe127':''}" style="color: black;" class="page-link">
         {{page1()}}
+      </a> -->
+      <a (click)="directPage(numberPage1)"
+        [ngStyle]="{'background-color':selectedPage==1?'#ffe127':''}" style="color: black;cursor: pointer;" class="page-link">
+        {{numberPage1}}
       </a>
     </li>
     <li *ngIf="numPage>1" class="page-item">
-      <a [routerLink]="['/']" [queryParams]="{page:page2()}"
+      <a (click)="directPage(numberPage2)"
         [ngStyle]="{'background-color':selectedPage!=1&&(selectedPage!=numPage&&numPage!=2)||(selectedPage==numPage&&numPage==2)?'#ffe127':''}"
-        style="color: black;" class="page-link">{{page2()}}
+        style="color: black;cursor: pointer;" class="page-link">{{numberPage2}}
       </a>
     </li>
     <li *ngIf="numPage>2" class="page-item">
-      <a [routerLink]="['/']" [queryParams]="{page:page3()}"
-        [ngStyle]="{'background-color':selectedPage==numPage?'#ffe127':''}" style="color: black;"
-        class="page-link">{{page3()}}
+      <a (click)="directPage(numberPage3)"
+        [ngStyle]="{'background-color':selectedPage==numPage?'#ffe127':''}" style="color: black;cursor: pointer;"
+        class="page-link">{{numberPage3}}
       </a>
     </li>
     <li class="page-item" [ngClass]="{'disabled':selectedPage==numPage}">
-      <a [routerLink]="['/']" [queryParams]="{page:selectedPage+1}" style="color: black;" class="page-link" href="#"
+      <a (click)="directPage(selectedPage+1)" style="color: black; cursor: pointer;" class="page-link" href="#"
         aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
