@@ -1,0 +1,8 @@
+<ul>
+  <li class="message" *ngFor="let message of receivedMessages">{{message}}</li>
+</ul>
+<audio #myAudio>
+  <source src="/assets/schedule.wav" type="audio/ogg">
+  <source scr="https://www.w3schools.com/jsref/horse.mp3" type="audio/mpeg">
+</audio>
+<button #myDiv (click)="myAudio.play()">Play</button>

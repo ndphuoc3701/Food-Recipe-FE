@@ -30,6 +30,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { SocketTestComponent } from './socket-test/socket-test.component';
+
 
 @NgModule({
   declarations: [
@@ -50,6 +52,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     ScheduleRecipeFormComponent,
     LoginComponent,
     UserProfileComponent,
+    SocketTestComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +72,10 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     NgxMatNativeDateModule,
     HttpClientModule
   ],
+  // providers: [{
+  //   provide: RxStompService,
+  //   useFactory: rxStompServiceFactory,
+  // },
   providers: [
   ],
   bootstrap: [AppComponent]
