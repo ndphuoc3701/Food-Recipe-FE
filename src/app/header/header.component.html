@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="dropdown d-flex">
-      <div class="position-relative d-flex me-2 align-items-center">
+      <div (click)="showSchedule=!showSchedule" class="position-relative d-flex me-2 align-items-center" style="cursor: pointer;">
         <div class="position-absolute text-center"
           style="right:-20%;top:0;width: 15px;height: 15px; border-radius: 50%; background-color: red;">
           <div class="position-absolute" style="font-size:small;top: 50%;
@@ -39,7 +39,7 @@
         <i class="clock bi bi-alarm" style="font-size: 25px;"></i>
         <div *ngIf="showSchedule" class="position-absolute border border-bottom-0 bg-white"
           style="width: 250px; top: 38px;right: 0;">
-          <div *ngFor="let schedulation of schedulations" class="border-bottom">
+          <div *ngFor="let schedulation of schedulations" class="border-bottom p-2">
             <div class="row">
               <div class="col-sm-3">
                 <img src={{schedulation.image}} style="width: 100%;">

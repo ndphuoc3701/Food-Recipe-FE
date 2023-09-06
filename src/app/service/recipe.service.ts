@@ -78,12 +78,12 @@ export class RecipeService {
     return this.http.get<Pagination<ScheduleRecipe>>(`${this.RECIPE_HOST}/scheduling?userId=${userId}&page=${pageNumber}`);
   }
 
-  getRecipeByKeyWord(keyword: string, pageNumber: number) {
-    return this.http.get<Pagination<ScheduleRecipe>>(`${this.RECIPE_HOST}/es?keyword=${keyword}&page=${pageNumber}`);
+  getRecipeByInput(keyword: string) {
+    return this.http.get<Pagination<Recipe>>(`${this.RECIPE_HOST}/search?keyword=${keyword}`);
   }
 
-  getRecipeByKeyWordInput(keyword: string) {
-    return this.http.get<Pagination<ScheduleRecipe>>(`${this.RECIPE_HOST}/search?keyword=${keyword}`);
+  getRecipeByKeyWord(keyword: string,ingredient: string, filter: string, page: number) {
+    return this.http.get<Pagination<Recipe>>(`${this.RECIPE_HOST}?keyword=${keyword}&ingredient=${ingredient}&filter=${filter}&page=${page}`);
   }
 
   openScheduleDialog(recipeName: string, recipeImage: string, recipeId: number): void {

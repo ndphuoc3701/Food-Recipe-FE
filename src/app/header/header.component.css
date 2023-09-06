@@ -23,7 +23,6 @@
   color: white;
 }
 
-.clock:hover {
+div:hover >.clock {
   color: white;
-  cursor: pointer;
 }
