@@ -4,10 +4,11 @@ import { Recipe } from '../model/recipe';
 import { Pagination } from '../model/pagination';
 import { RecipeService } from '../service/recipe.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ScheduleRecipeFormComponent } from '../edit-personal-recipe/edit-personal-recipe.component';
 import { DialogComponent } from '../dialog/dialog.component';
 import { LearntRecipe } from '../model/learntRecipe';
 import { RecipeShareFormComponent } from '../recipe-share-form/recipe-share-form.component';
+import { UserService } from '../service/user.service';
+import { ScheduleRecipe } from '../model/scheduleRecipe';
 
 
 export enum ListType {
@@ -24,7 +25,7 @@ export enum ListType {
 })
 export class PersonalRecipeListComponent {
   currentLink!: string;
-  constructor(private router: Router, private route: ActivatedRoute, public recipeService: RecipeService, private dialog: MatDialog) { }
+  constructor(private router: Router, private route: ActivatedRoute, public recipeService: RecipeService, private dialog: MatDialog, private userService: UserService) { }
   ngOnInit(): void {
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
@@ -36,24 +37,27 @@ export class PersonalRecipeListComponent {
             }
             if (this.router.url.includes('favorite-recipes')) {
               this.currentLink = 'favorite-recipes';
-              this.recipeService.getFavoriteRecipesByUserId(2, this.recipeService.selectedPage).subscribe(res => {
+              this.recipeService.getFavoriteRecipesByUserId(this.userService.userInfo?.id!, this.recipeService.selectedPage).subscribe(res => {
                 this.getResponse(res);
               });
             }
             else if (this.router.url.includes('your-recipes')) {
               this.currentLink = 'your-recipes';
-              this.recipeService.getRecipesByUserId(2, this.recipeService.selectedPage).subscribe(res => {
+              this.recipeService.getRecipesByUserId(this.userService.userInfo?.id!, this.recipeService.selectedPage).subscribe(res => {
                 this.getResponse(res);
               });
             }
             else if (this.router.url.includes('learnt-recipes')) {
               this.currentLink = 'learnt-recipes';
-              this.recipeService.getLearningRecipesByUserId(2, this.recipeService.selectedPage).subscribe(res => {
+              this.recipeService.getLearningRecipesByUserId(this.userService.userInfo?.id!, this.recipeService.selectedPage).subscribe(res => {
                 this.getLearntResponse(res);
               });
             }
             else if (this.router.url.includes('scheduled-recipes')) {
               this.currentLink = 'scheduled-recipes';
+              this.recipeService.getScheduleRecipesByUserId(this.userService.userInfo?.id!, this.recipeService.selectedPage).subscribe(res => {
+                this.getScheduleResponse(res);
+              });
             };
           });
       }
@@ -83,6 +87,11 @@ export class PersonalRecipeListComponent {
 
   getLearntResponse(res: Pagination<LearntRecipe>) {
     this.recipeService.learntRecipes = res.objects;
+    this.recipeService.numPage = res.totalPages;
+  }
+
+  getScheduleResponse(res: Pagination<ScheduleRecipe>) {
+    this.recipeService.scheduleRecipes = res.objects;
     this.recipeService.numPage = res.totalPages;
   }
 

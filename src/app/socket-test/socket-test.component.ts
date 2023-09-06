@@ -25,7 +25,6 @@ export class SocketTestComponent {
   stompClient!: Stomp.Client;
 
   _connect() {
-    console.log("Initialize WebSocket Connection");
     // let ws = new SockJS(this.webSocketEndPoint);
     let ws = new SockJS(this.webSocketEndPoint);
     this.stompClient = Stomp.over(ws);
@@ -41,26 +40,19 @@ export class SocketTestComponent {
 
   _disconnect() {
     if (this.stompClient !== null) {
-      this.stompClient.disconnect(() => { console.log('lol'); }
+      this.stompClient.disconnect(() => { }
       );
     }
-    console.log("Disconnected");
   }
 
   // on error, schedule a reconnection attempt
   errorCallBack(error: any) {
-    console.log("errorCallBack -> " + error)
     setTimeout(() => {
       this._connect();
     }, 5000);
   }
 
   onMessageReceived(message: any) {
-    console.log("Message Recieved from Server :: " + message);
-    console.log(message.body);
-    let scheduleRecipeTimer: ScheduleRecipeTimer = JSON.parse(message.body);
-
-    console.log(scheduleRecipeTimer);
 
     this.receivedMessages.push(JSON.stringify(message.body));
     this.playAudio();

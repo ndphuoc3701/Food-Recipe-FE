@@ -24,7 +24,9 @@ export class UserProfileComponent implements OnInit {
         if (this.userId != this.userService.userInfo?.id) {
           this.userService.getUserInfo(this.userId).subscribe(userInfo => this.userInfo = userInfo);
         }
-        this.userInfo != this.userService.userInfo;
+        console.log(this.userService.userInfo);
+
+        this.userInfo = this.userService.userInfo!;
         this.recipeService.getRecipesByUserId(this.userId, this.recipeService.selectedPage).subscribe(res => {
           this.getResponse(res);
         });
@@ -63,8 +65,6 @@ export class UserProfileComponent implements OnInit {
       reader.readAsDataURL(file);
       reader.onload = (_event) => {
         this.userImage = reader.result! as string;
-        console.log(this.userImage);
-
       }
     };
     input.click();
@@ -77,7 +77,6 @@ export class UserProfileComponent implements OnInit {
 
       this.userService.userInfo!.image = this.userImage;
       this.userImage = null;
-      console.log(this.userService.userInfo?.image);
     }
     );
   }

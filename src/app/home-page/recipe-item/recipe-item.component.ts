@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Recipe } from 'src/app/model/recipe';
 import { RecipeService } from 'src/app/service/recipe.service';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-recipe-item',
@@ -12,7 +13,7 @@ export class RecipeItemComponent {
 
   favoriteHover: boolean = false;
 
-  constructor(private recipeService: RecipeService) {
+  constructor(private recipeService: RecipeService, private userService: UserService) {
 
   }
 
@@ -28,8 +29,10 @@ export class RecipeItemComponent {
     event.stopImmediatePropagation();
     this.recipe.favorite = !this.recipe.favorite;
     this.favoriteHover = false;
-    this.recipeService.addFavoriteRecipe(1, 6).subscribe();
-
+    if (this.recipe.favorite)
+      this.recipeService.addFavoriteRecipe(this.userService.userInfo?.id!, this.recipe.id).subscribe();
+    else
+      this.recipeService.deleteFavoriteRecipe(this.userService.userInfo?.id!, this.recipe.id).subscribe();
   }
 
   toFix(n: number): string {

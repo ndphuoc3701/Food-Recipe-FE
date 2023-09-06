@@ -17,13 +17,10 @@ export class AppComponent {
   }
 
   modifyHeader(location: any) { // This method is called many times
-    // console.log(location.url); // This prints a loot of routes on console
-    // if (location.url === '/login') {
-    //   this.showHeader = false;
-    // } else {
-    //   this.showHeader = true;
-    // }
-    // console.log(this.showHeader);
-
+    if (location.url === '/admin-gui') {
+      this.showHeader = false;
+    } else {
+      this.showHeader = true;
+    }
   }
 }

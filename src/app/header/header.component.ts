@@ -15,12 +15,16 @@ export class HeaderComponent implements OnInit {
   constructor(public userService: UserService, private router: Router) { }
 
   showSchedule: boolean = false;
+  showSchedulePopup: boolean = false;
   receivedMessages: string[] = ['cc'];
   schedulations: ScheduleRecipeTimer[] = [new ScheduleRecipeTimer("Bò hầm", "/assets/icon/cooker.png", "29 phút trước"),
   new ScheduleRecipeTimer("Bò hầm rau thơm", "/assets/icon/cooker.png", "33 phút trước")];
   ngOnInit(): void {
+
     this.userService.isLoggedInSubject.subscribe(v => {
       this.userService.userInfo = v;
+      console.log(this.userService.userInfo);
+
       if (v == null) {
         this.router.navigate(['/login']);
       }
@@ -39,14 +43,14 @@ export class HeaderComponent implements OnInit {
   stompClient!: Stomp.Client;
 
   _connect() {
-    console.log("Initialize WebSocket Connection");
-    // let ws = new SockJS(this.webSocketEndPoint);
     let ws = new SockJS(this.webSocketEndPoint);
     this.stompClient = Stomp.over(ws);
     const _this = this;
     _this.stompClient.connect({}, frame => {
       _this.stompClient.subscribe(_this.topic, payload => {
         _this.onMessageReceived(payload);
+        this.showSchedulePopup = true;
+        setTimeout(() => this.showSchedulePopup = false, 5000);
       });
       //_this.stompClient.reconnect_delay = 2000;
     }, this.errorCallBack);
@@ -55,15 +59,13 @@ export class HeaderComponent implements OnInit {
 
   _disconnect() {
     if (this.stompClient !== null) {
-      this.stompClient.disconnect(() => { console.log('lol'); }
+      this.stompClient.disconnect(() => { }
       );
     }
-    console.log("Disconnected");
   }
 
   // on error, schedule a reconnection attempt
   errorCallBack(error: any) {
-    console.log("errorCallBack -> " + error)
     setTimeout(() => {
       this._connect();
     }, 5000);

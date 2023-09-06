@@ -1,8 +1,8 @@
 <div class="fs-3 mb-4">Công thức đã lên lịch</div>
 
 <div [routerLink]="['/recipes/'+scheduleRecipe.recipe.id]"
-  *ngFor="let scheduleRecipe of scheduleRecipes,let scheduleRecipeIdx=index" class="row p-2 mb-2 item"
-  style="cursor: pointer;">
+  *ngFor="let scheduleRecipe of this.recipeService.scheduleRecipes,let scheduleRecipeIdx=index"
+  class="row p-2 mb-2 item" style="cursor: pointer;">
   <div class="col-sm-12 ">
     <div class="row">
       <app-common-recipe-list [recipe]="scheduleRecipe.recipe"></app-common-recipe-list>

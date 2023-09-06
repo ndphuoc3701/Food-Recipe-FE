@@ -12,7 +12,7 @@ export class UserService {
   USER_HOST = HOST + 'users';
 
   // userInfo: UserInfo | null = null;
-  userInfo: UserInfo | null = new UserInfo(2, "NDP", "u2", "p", "/assets/user/u2.jpg", 4.3, 3.7);
+  userInfo: UserInfo | null = new UserInfo(1, "NDP", "u2", "p", "/assets/user/u2.jpg", 4.3, 3.7);
 
   constructor(private http: HttpClient, router: Router) { }
 

@@ -1,9 +1,21 @@
-<img class="my-3 d-block mx-auto" style="width: 15%;" src="/assets/icon/forbidden.png">
+<img *ngIf="data.isConfirm==undefined" class="my-3 d-block mx-auto" style="width: 15%;"
+  src="/assets/icon/forbidden.png">
 
-<div class="text-center">{{data.text}}</div>
+<div [ngClass]="{'my-2 fs-5':data.isConfirm}" class="text-center">{{data.text}}</div>
 
 
-<mat-dialog-actions>
-  <button mat-raised-button class="button-form ms-auto rounded-1 btn-secondary" (click)="close()">Trở
+<!-- <mat-dialog-actions>
+  <button mat-raised-button class="button-form ms-auto text-white rounded-1 bg-warning border-warning"
+    (click)="close(true)">Xác
+    nhận</button>
+  <button mat-raised-button class="button-form ms-auto rounded-1 btn-secondary" (click)="close(false)">Trở
     lại</button>
+    
+</mat-dialog-actions> -->
+
+<mat-dialog-actions style="display:flex; padding-right: 25px;" class="justify-content-end">
+
+  <button *ngIf="data.isConfirm" class="rounded-1 bg-warning border-warning text-white" (click)="close(true)"
+    mat-raised-button>Xác nhận</button>
+  <button class="rounded-1 button-secondary" (click)="close(true)" mat-raised-button>Trở lại</button>
 </mat-dialog-actions>

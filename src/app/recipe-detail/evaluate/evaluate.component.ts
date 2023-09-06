@@ -65,18 +65,24 @@ export class EvaluateComponent implements OnInit {
   clickLike(evaluation: Evaluation) {
     if (evaluation.isLike) {
       evaluation.isLike = undefined;
+      evaluation.numLike--;
     }
     else {
+      evaluation.numLike++;
       evaluation.isLike = true;
+      this.evaluationService.likeEvaluation(evaluation.id, true).subscribe();
     }
   }
 
   clickDislike(evaluation: Evaluation) {
     if (evaluation.isLike == false) {
       evaluation.isLike = undefined;
+      evaluation.numDislike--;
     }
     else {
+      evaluation.numDislike++;
       evaluation.isLike = false;
+      this.evaluationService.likeEvaluation(evaluation.id, false).subscribe();
     }
   }
 

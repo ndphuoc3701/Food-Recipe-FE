@@ -1,0 +1,31 @@
+<h2 class="text-center">ADMIN GUI</h2>
+<!-- <div (click)="isRecipe=!isRecipe">Recipe
+  <iframe style="width: 100%;height: 677px;" *ngIf="isRecipe" src="http://localhost:8080"></iframe>
+</div> -->
+<div class="mx-2 border border-dark" style="border-radius: 5px;">
+  <div style="background-color: #cac2c2; font-weight: bold;border-radius: 5px;" class="ps-2 py-2"
+    (click)="isRecipe=!isRecipe">
+    <i *ngIf="isRecipe" class="bi bi-chevron-down"></i>
+    <i *ngIf="!isRecipe" class="bi bi-chevron-right"></i>
+    Recipe
+  </div>
+  <iframe style="width: 100%;height: 677px;" *ngIf="isRecipe" src="http://localhost:8080"></iframe>
+</div>
+<div class="mx-2 mt-2 border border-dark" style="border-radius: 5px;">
+  <div style="background-color: #cac2c2; font-weight: bold;border-radius: 5px;" class="ps-2 py-2"
+    (click)="isUser=!isUser">
+    <i *ngIf="isUser" class="bi bi-chevron-down"></i>
+    <i *ngIf="!isUser" class="bi bi-chevron-right"></i>
+    User
+  </div>
+  <iframe style="width: 100%;height: 677px;" *ngIf="isUser" src="http://localhost:8080/user"></iframe>
+</div>
+<div class="mx-2 mt-2 border border-dark" style="border-radius: 5px;">
+  <div style="background-color: #cac2c2; font-weight: bold;border-radius: 5px;" class="ps-2 py-2"
+    (click)="isEvaluation=!isEvaluation">
+    <i *ngIf="isEvaluation" class="bi bi-chevron-down"></i>
+    <i *ngIf="!isEvaluation" class="bi bi-chevron-right"></i>
+    Evaluation
+  </div>
+  <iframe style="width: 100%;height: 677px;" *ngIf="isEvaluation" src="http://localhost:8080/evaluation"></iframe>
+</div>

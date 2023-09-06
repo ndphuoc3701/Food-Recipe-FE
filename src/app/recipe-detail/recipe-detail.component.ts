@@ -9,7 +9,7 @@ import { Image } from '../model/image';
 import { RecipeService } from '../service/recipe.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ScheduleRecipeFormComponent } from '../edit-personal-recipe/edit-personal-recipe.component';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -26,34 +26,19 @@ export class RecipeDetailComponent implements OnInit {
     // let ingredients = [new Ingredient("Chanh", "1 trái"),
     // new Ingredient("Bò", "5kg")]
     let recipeId = Number(this.route.snapshot.paramMap.get('id'));
-    this.recipeService.getRecipeDetailById(recipeId).subscribe(recipeDetail => {
+    this.recipeService.getRecipeDetailById(recipeId, this.userService.userInfo?.id!).subscribe(recipeDetail => {
       this.recipeDetail = recipeDetail;
     })
   }
 
-  constructor(private recipeService: RecipeService, private route: ActivatedRoute, private dialog: MatDialog) { }
+  constructor(private recipeService: RecipeService, private userService: UserService, private route: ActivatedRoute, private dialog: MatDialog) { }
 
   toFix(n: number): string {
     let m = n / 1000;
     return m.toFixed(1);
   }
 
-  favoriteHover: boolean = false;
-
-  mouseEnterFavorite() {
-    this.favoriteHover = true;
-  }
-
-  mouseLeaveFavorite() {
-    this.favoriteHover = false;
-  }
-
-  clickFavorite() {
-    this.recipeDetail.recipe.favorite = !this.recipeDetail.recipe.favorite;
-    this.favoriteHover = false
-  }
-
-  clickClock(recipeName: string, recipeImage: string) {
-    this.recipeService.openScheduleDialog(recipeName, recipeImage);
+  clickClock(recipeName: string, recipeImage: string, recipeId: number) {
+    this.recipeService.openScheduleDialog(recipeName, recipeImage, recipeId);
   }
 }

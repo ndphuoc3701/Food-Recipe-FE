@@ -19,7 +19,7 @@
         </div>
         <!-- <img src={{this.userInfo!.image}} style="width: 30%; height: 152px;border-radius: 50%;"> -->
         <mat-dialog-actions *ngIf="this.userImage!=null" class="d-flex justify-content-center">
-          <button style=" margin:5px" class="py-1 rounded-1 bg-warning border-warning text-white"
+          <button style=" margin:5px" class="py-1 rounded-1 bg-warning border-warning text-white" mat-raised-button
             (click)="updateImage()">Lưu</button>
           <button class="rounded-1 text-white py-1" (click)="this.userImage=null"
             style="background-color: #b9b9b9; margin:5px" mat-raised-button>Huỷ</button>

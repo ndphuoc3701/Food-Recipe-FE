@@ -8,7 +8,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ScheduleRecipeFormComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: {
-    title: string
+    title: string,
+    recipeId: number,
     recipeIdx: number,
     recipeImage: string,
     recipeName: string,

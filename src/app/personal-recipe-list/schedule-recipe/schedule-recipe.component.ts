@@ -5,6 +5,9 @@ import { LearntRecipe } from 'src/app/model/learntRecipe';
 import { MatDialog } from '@angular/material/dialog';
 import { ScheduleRecipe } from 'src/app/model/scheduleRecipe';
 import { ScheduleRecipeFormComponent } from 'src/app/edit-personal-recipe/edit-personal-recipe.component';
+import { RecipeService } from 'src/app/service/recipe.service';
+import { ScheduleRequest } from 'src/app/request/schedule-request';
+import { UserService } from 'src/app/service/user.service';
 @Component({
   selector: 'app-schedule-recipe',
   templateUrl: './schedule-recipe.component.html',
@@ -14,13 +17,13 @@ export class ScheduleRecipeComponent {
 
 
   listType: ListType = ListType.Schedule;
-  scheduleRecipes: ScheduleRecipe[] = [
-    new ScheduleRecipe(1, new Recipe(1, "Heo hầm", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", true, 4.25, 1002, 50, '21/6/2023'), 'Thêm muối', '21/6/2023 18:30'),
-    new ScheduleRecipe(2, new Recipe(2, "Bò hầm", "/assets/recipe/z4459772476120_e4ad895886890eebd49855cbfe6baa39.jpg", false, 3.25, 1102, 50, '20/5/2023'), 'Thêm mắm', '21/6/2023 18:30')
-  ];
+  // scheduleRecipes: ScheduleRecipe[] = [
+  //   new ScheduleRecipe(1, new Recipe(1, "Heo hầm", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", true, 4.25, 1002, 50, '21/6/2023'), 'Thêm muối', '21/6/2023 18:30'),
+  //   new ScheduleRecipe(2, new Recipe(2, "Bò hầm", "/assets/recipe/z4459772476120_e4ad895886890eebd49855cbfe6baa39.jpg", false, 3.25, 1102, 50, '20/5/2023'), 'Thêm mắm', '21/6/2023 18:30')
+  // ];
   // scheduleRecipes!: LearntRecipe[];
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, public recipeService: RecipeService, private userService: UserService) { }
 
   lol(event: any) {
     event.stopImmediatePropagation();
@@ -46,8 +49,10 @@ export class ScheduleRecipeComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.scheduleRecipes[result.recipeIdx].scheduleTime = result.scheduledDate;
-      this.scheduleRecipes[result.recipeIdx].note = result.note;
+      this.recipeService.scheduleRecipes[result.recipeIdx].scheduleTime = result.scheduledDate;
+      this.recipeService.scheduleRecipes[result.recipeIdx].note = result.note;
+      let scheduleRequest = new ScheduleRequest(this.userService.userInfo?.id!, result.id, result.note, result.scheduledDate);
+      this.recipeService.updateScheduleRecipe(scheduleRequest);
     });
   }
 }

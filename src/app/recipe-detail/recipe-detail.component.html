@@ -2,7 +2,7 @@
   <div class="m-auto bg-white p-3" style="width: 50%;">
     <app-intro [recipeDetail]="recipeDetail"></app-intro>
     <div>
-      <div (click)="clickClock(recipeDetail.recipe.name,recipeDetail.recipe.image)"
+      <div (click)="clickClock(recipeDetail.recipe.name,recipeDetail.recipe.image,recipeDetail.recipe.id)"
         style="border-radius: 50%; width: 60px; height: 60px;left:80%;top:74%;z-index: 1; cursor: pointer;"
         class="position-fixed bg-warning">
         <i class="clock bi bi-alarm position-absolute" style="  margin: 0;

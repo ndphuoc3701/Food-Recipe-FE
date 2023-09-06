@@ -13,8 +13,11 @@ import { RecipeService } from 'src/app/service/recipe.service';
 })
 export class YourRecipeComponent implements OnInit {
   ngOnInit(): void {
+    if (this.router.url.includes('favorite-recipes')) {
+      this.isFavorite = true;
+    }
   }
-
+  isFavorite: boolean = false;
   constructor(private dialog: MatDialog, private router: Router, private route: ActivatedRoute, public recipeService: RecipeService) { }
   openDialog(): void {
     const dialogRef = this.dialog.open(RecipeShareFormComponent, {

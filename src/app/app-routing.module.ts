@@ -10,6 +10,7 @@ import { LearntRecipeComponent } from './personal-recipe-list/learnt-recipe/lear
 import { ScheduleRecipeComponent } from './personal-recipe-list/schedule-recipe/schedule-recipe.component';
 import { LoginComponent } from './login/login.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { AdminGuiComponent } from './admin-gui/admin-gui.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,9 @@ const routes: Routes = [
   },
   {
     path: 'sign-up', component: LoginComponent
+  },
+  {
+    path: 'admin-gui', component: AdminGuiComponent
   },
   {
     path: 'personal-recipes', component: PersonalRecipeListComponent, children: [

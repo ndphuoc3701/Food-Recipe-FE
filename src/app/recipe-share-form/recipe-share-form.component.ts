@@ -56,8 +56,6 @@ export class RecipeShareFormComponent implements OnInit {
       }
     }
     this.validateImage();
-    console.log(this.validate);
-
     if (!this.validate.name || !this.validate.image || !validateInstruction || !validateIngredient) {
       return false;
     }

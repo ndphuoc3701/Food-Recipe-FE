@@ -21,4 +21,8 @@ export class EvaluationService {
   getEvaluationsByRecipeId(recipeId: number, pageNumber: number) {
     return this.http.get<Pagination<Evaluation>>(`${this.EVALUATION_HOST}/recipes/${recipeId}?page=${pageNumber}`);
   }
+
+  likeEvaluation(evaluationId: number, isLike: boolean) {
+    return this.http.get<Pagination<Evaluation>>(`${this.EVALUATION_HOST}/${evaluationId}?isLike=${isLike}`);
+  }
 }

@@ -1,6 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from 'src/app/dialog/dialog.component';
 import { Recipe } from 'src/app/model/recipe';
 import { RecipeDetail } from 'src/app/model/recipeDetail';
+import { RecipeService } from 'src/app/service/recipe.service';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-intro',
@@ -8,6 +12,7 @@ import { RecipeDetail } from 'src/app/model/recipeDetail';
   styleUrls: ['./intro.component.css']
 })
 export class IntroComponent {
+  constructor(private recipeService: RecipeService, private userService: UserService, private dialog: MatDialog) { }
   @Input() recipeDetail!: RecipeDetail
 
 
@@ -20,8 +25,6 @@ export class IntroComponent {
   favoriteHover: boolean = false;
 
   mouseEnterFavorite() {
-    console.log(this.recipeDetail);
-
     this.favoriteHover = true;
   }
 
@@ -30,7 +33,23 @@ export class IntroComponent {
   }
 
   clickFavorite() {
-    this.recipeDetail.recipe.favorite = !this.recipeDetail.recipe.favorite;
-    this.favoriteHover = false
+    this.favoriteHover = false;
+    if (!this.recipeDetail.recipe.favorite) {
+      this.recipeService.addFavoriteRecipe(this.userService.userInfo?.id!, this.recipeDetail.recipe.id).subscribe();
+      this.recipeDetail.recipe.favorite = true;
+    }
+    else {
+      let dialogRef = this.dialog.open(DialogComponent, {
+        width: '20%',
+        data: { text: 'Huỷ yêu thích món này?', isConfirm: true }
+      });
+      dialogRef.afterClosed().subscribe(confirm => {
+        if (confirm) {
+          this.recipeService.deleteFavoriteRecipe(this.userService.userInfo?.id!, this.recipeDetail.recipe.id).subscribe();
+          this.recipeDetail.recipe.favorite = false;
+        }
+      }
+      )
+    }
   }
 }

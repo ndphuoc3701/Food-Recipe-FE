@@ -31,6 +31,7 @@ import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { SocketTestComponent } from './socket-test/socket-test.component';
+import { AdminGuiComponent } from './admin-gui/admin-gui.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { SocketTestComponent } from './socket-test/socket-test.component';
     ScheduleRecipeFormComponent,
     LoginComponent,
     UserProfileComponent,
-    SocketTestComponent
+    SocketTestComponent,
+    AdminGuiComponent
   ],
   imports: [
     BrowserModule,

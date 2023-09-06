@@ -58,9 +58,14 @@
           style="height: 35px; width: 35px;border-radius: 50%; background-color: white;">
       </div>
       <ul class="dropdown-menu" style="min-width: 130px;" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="/users/{{this.userService.userInfo.id}}">Hồ sơ của tôi</a></li>
+        <li><a class="dropdown-item" [routerLink]="['/users',this.userService.userInfo.id]">Hồ sơ của tôi</a></li>
         <li><a class="dropdown-item" style="cursor: pointer;" (click)="logOut()">Đăng xuất</a></li>
       </ul>
     </div>
   </div>
 </nav>
+<div *ngIf="showSchedulePopup" class="position-fixed border" style="bottom: 0;right: 0;width: 10%; height: 100px;">
+  <i class="bi bi-x-lg position-absolute" style="top:5px; right:5px; font-size: 15px; cursor: pointer;"
+    (click)="showSchedulePopup=false"></i>
+  lol
+</div>
