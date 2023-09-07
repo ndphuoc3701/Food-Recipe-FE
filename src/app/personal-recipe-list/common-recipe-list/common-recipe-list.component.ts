@@ -71,4 +71,19 @@ export class CommonRecipeListComponent implements OnInit {
     event.stopImmediatePropagation();
     this.recipeService.openScheduleDialog(recipeName, recipeImage, recipeId);
   }
+
+  removeSchedule(event: any) {
+    event.stopImmediatePropagation();
+    let dialogRef = this.dialog.open(DialogComponent, {
+      width: '20%',
+      data: { text: 'Huỷ lên lịch món này?', isConfirm: true }
+    });
+    dialogRef.afterClosed().subscribe(confirm => {
+      if (confirm) {
+        this.recipeService.deleteScheduleRecipe(this.userService.userInfo?.id!, this.recipe.id).subscribe();
+        this.recipeService.scheduleRecipes = this.recipeService.scheduleRecipes.filter(s => s.recipe.id != this.recipe.id)
+      }
+    }
+    )
+  }
 }

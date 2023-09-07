@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject, LOCALE_ID } from '@angular/core';
 import { ListType } from '../personal-recipe-list.component';
 import { Recipe } from 'src/app/model/recipe';
 import { LearntRecipe } from 'src/app/model/learntRecipe';
@@ -8,6 +8,7 @@ import { ScheduleRecipeFormComponent } from 'src/app/edit-personal-recipe/edit-p
 import { RecipeService } from 'src/app/service/recipe.service';
 import { ScheduleRequest } from 'src/app/request/schedule-request';
 import { UserService } from 'src/app/service/user.service';
+import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-schedule-recipe',
   templateUrl: './schedule-recipe.component.html',
@@ -23,17 +24,17 @@ export class ScheduleRecipeComponent {
   // ];
   // scheduleRecipes!: LearntRecipe[];
 
-  constructor(private dialog: MatDialog, public recipeService: RecipeService, private userService: UserService) { }
+  constructor(private dialog: MatDialog, public recipeService: RecipeService, private userService: UserService, @Inject(LOCALE_ID) private locale: string) { }
 
   lol(event: any) {
     event.stopImmediatePropagation();
   }
   edit(event: any, recipeIdx: number, scheduleRecipe: ScheduleRecipe) {
     event.stopImmediatePropagation();
-    this.openEditDialog(recipeIdx, scheduleRecipe.scheduleTime!, scheduleRecipe.note!, scheduleRecipe.recipe.name, scheduleRecipe.recipe.image);
+    this.openEditDialog(recipeIdx, scheduleRecipe.scheduleTime!, scheduleRecipe.note!, scheduleRecipe.recipe);
 
   }
-  openEditDialog(recipeIdx: number, scheduleDate: string, note: string, recipeName: string, recipeImage: string): void {
+  openEditDialog(recipeIdx: number, scheduleDate: string, note: string, scheduleRecipe: Recipe): void {
 
     const dialogRef = this.dialog.open(ScheduleRecipeFormComponent, {
       width: '30%',
@@ -42,17 +43,21 @@ export class ScheduleRecipeComponent {
         title: 'Chỉnh sửa công thức đã lên lịch',
         recipeIdx: recipeIdx,
         scheduledDate: '2023-07-15T18:48',
-        recipeName: recipeName,
-        recipeImage: recipeImage,
+        recipeId: scheduleRecipe.id,
+        recipeName: scheduleRecipe.name,
+        recipeImage: scheduleRecipe.image,
         note: note
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.recipeService.scheduleRecipes[result.recipeIdx].scheduleTime = result.scheduledDate;
+      let formatDated = formatDate(result.scheduledTime, 'yyyy-MM-dd HH:mm', this.locale);
+      this.recipeService.scheduleRecipes[result.recipeIdx].scheduleTime = formatDated;
       this.recipeService.scheduleRecipes[result.recipeIdx].note = result.note;
-      let scheduleRequest = new ScheduleRequest(this.userService.userInfo?.id!, result.id, result.note, result.scheduledDate);
-      this.recipeService.updateScheduleRecipe(scheduleRequest);
+      let scheduleRequest = new ScheduleRequest(this.userService.userInfo?.id!, result.recipeId, result.note, formatDated);
+      this.recipeService.updateScheduleRecipe(scheduleRequest).subscribe();
+      console.log(scheduleRequest);
+
     });
   }
 }

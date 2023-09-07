@@ -4,7 +4,7 @@
   </div>
   <div class="col-sm-8">
     <div class="row">
-      <div class="" [ngClass]=" (isClock?'col-sm-10':'col-sm-12')+' h1 p-0'">
+      <div class="" [ngClass]=" (isClock?'col-sm-10':'col-sm-11')+' h1 p-0'">
         {{recipe.name}}
       </div>
       <div *ngIf="isClock" (click)="clickClock($event,recipe.name,recipe.image,recipe.id)"
@@ -16,6 +16,17 @@
             left: 50%;
             -ms-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);font-size: 30px;"></i>
+      </div>
+      <div *ngIf="!isClock" class="col-sm-1 p-0">
+        <div class="position-relative image rounded-5 mx-auto" (click)="removeSchedule($event)"
+          style="width: 30px; height: 30px;">
+          <i class="bi bi-x-lg vertical-center" style="  margin: 0;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%); font-size: 15px;"></i>
+        </div>
       </div>
     </div>
     <div class="row">
