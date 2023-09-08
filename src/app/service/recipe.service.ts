@@ -74,15 +74,15 @@ export class RecipeService {
     return this.http.delete<void>(`${this.RECIPE_HOST}/scheduling?userId=${userId}&recipeId=${recipeId}`)
   }
 
-  getScheduleRecipesByUserId(userId: number, pageNumber: number) {
-    return this.http.get<Pagination<ScheduleRecipe>>(`${this.RECIPE_HOST}/scheduling?userId=${userId}&page=${pageNumber}`);
+  getScheduleRecipesByUserId(old: boolean, userId: number, pageNumber: number) {
+    return this.http.get<Pagination<ScheduleRecipe>>(`${this.RECIPE_HOST}/scheduling?old=${old}&userId=${userId}&page=${pageNumber}`);
   }
 
   getRecipeByInput(keyword: string) {
     return this.http.get<Pagination<Recipe>>(`${this.RECIPE_HOST}/search?keyword=${keyword}`);
   }
 
-  getRecipeByKeyWord(keyword: string,ingredient: string, filter: string, page: number) {
+  getRecipeByKeyWord(keyword: string, ingredient: string, filter: string, page: number) {
     return this.http.get<Pagination<Recipe>>(`${this.RECIPE_HOST}?keyword=${keyword}&ingredient=${ingredient}&filter=${filter}&page=${page}`);
   }
 

@@ -54,8 +54,11 @@ export class PersonalRecipeListComponent {
               });
             }
             else if (this.router.url.includes('scheduled-recipes')) {
-              this.currentLink = 'scheduled-recipes';
-              this.recipeService.getScheduleRecipesByUserId(this.userService.userInfo?.id!, this.recipeService.selectedPage).subscribe(res => {
+              // this.currentLink = 'scheduled-recipes';
+              // let old = params['old'] != undefined;
+              console.log('cm');
+
+              this.recipeService.getScheduleRecipesByUserId(false, this.userService.userInfo?.id!, this.recipeService.selectedPage).subscribe(res => {
                 this.getScheduleResponse(res);
               });
             };

@@ -1,8 +1,34 @@
-<div class="fs-3 mb-4">Công thức đã lên lịch</div>
+<!-- <div *ngIf="old==true">
+  <div class="fs-3 mb-3">Lịch sử công thức đã lên lịch</div>
+  <div style="color:blue;cursor: pointer;text-decoration: underline; text-align: end;"
+    [routerLink]="['/personal-recipes/scheduled-recipes']">
+    Xem các công thức lên lịch sắp tới
+  </div>
+</div>
+<div *ngIf="old==false">
+  <div class="fs-3 mb-3">Công thức lên lịch sắp tới</div>
+  <div style="color:blue;cursor: pointer;text-decoration: underline; text-align: end;"
+    [routerLink]="['/personal-recipes/old-scheduled-recipes']">
+    Xem lịch sử công thức đã lên lịch
+  </div>
+</div> -->
+<div *ngIf="old==true">
+  <div class="fs-3 mb-3">Lịch sử công thức đã lên lịch</div>
+  <div style="color:blue;cursor: pointer;text-decoration: underline; text-align: end;" (click)="clickOld(false)">
+    Xem các công thức lên lịch sắp tới
+  </div>
+</div>
+<div *ngIf="old==false">
+  <div class="fs-3 mb-3">Công thức lên lịch sắp tới</div>
+  <div style="color:blue;cursor: pointer;text-decoration: underline; text-align: end;" (click)="clickOld(true)">
+    Xem lịch sử công thức đã lên lịch
+  </div>
+</div>
+
 
 <div [routerLink]="['/recipes/'+scheduleRecipe.recipe.id]"
   *ngFor="let scheduleRecipe of this.recipeService.scheduleRecipes,let scheduleRecipeIdx=index"
-  class="row p-2 mb-2 item" style="cursor: pointer;">
+  class="row p-2 mt-4 mb-2 item" style="cursor: pointer;">
   <div class="col-sm-12 ">
     <div class="row">
       <app-common-recipe-list [recipe]="scheduleRecipe.recipe"></app-common-recipe-list>

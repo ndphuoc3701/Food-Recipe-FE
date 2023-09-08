@@ -1,4 +1,4 @@
-import { Component, Inject, LOCALE_ID } from '@angular/core';
+import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { ListType } from '../personal-recipe-list.component';
 import { Recipe } from 'src/app/model/recipe';
 import { LearntRecipe } from 'src/app/model/learntRecipe';
@@ -9,14 +9,16 @@ import { RecipeService } from 'src/app/service/recipe.service';
 import { ScheduleRequest } from 'src/app/request/schedule-request';
 import { UserService } from 'src/app/service/user.service';
 import { formatDate } from '@angular/common';
+import { ActivatedRoute, NavigationEnd, Route, Router } from '@angular/router';
+import { Pagination } from 'src/app/model/pagination';
 @Component({
   selector: 'app-schedule-recipe',
   templateUrl: './schedule-recipe.component.html',
   styleUrls: ['./schedule-recipe.component.css', '../personal-recipe-list.component.css']
 })
-export class ScheduleRecipeComponent {
+export class ScheduleRecipeComponent implements OnInit {
 
-
+  old: boolean = false;
   listType: ListType = ListType.Schedule;
   // scheduleRecipes: ScheduleRecipe[] = [
   //   new ScheduleRecipe(1, new Recipe(1, "Heo hầm", "/assets/recipe/z4459769511231_d02634b64001a6d17160e0527af636c0.jpg", true, 4.25, 1002, 50, '21/6/2023'), 'Thêm muối', '21/6/2023 18:30'),
@@ -24,7 +26,28 @@ export class ScheduleRecipeComponent {
   // ];
   // scheduleRecipes!: LearntRecipe[];
 
-  constructor(private dialog: MatDialog, public recipeService: RecipeService, private userService: UserService, @Inject(LOCALE_ID) private locale: string) { }
+  constructor(private dialog: MatDialog, public recipeService: RecipeService, private userService: UserService, @Inject(LOCALE_ID) private locale: string, private router: Router, private route: ActivatedRoute) { }
+  ngOnInit(): void {
+    // this.route.queryParams
+    //   .subscribe(params => {
+    //     console.log(params); // { orderby: "price" }
+    //     this.old = params['old'];
+    //     if (this.old == undefined) this.old = 'false';
+    //     console.log(this.old); // price
+    //   }
+    //   );
+  }
+
+  clickOld(isOld: boolean) {
+    this.recipeService.selectedPage = 1;
+    this.recipeService.getScheduleRecipesByUserId(isOld, this.userService.userInfo?.id!, this.recipeService.selectedPage).subscribe(res => { this.getScheduleResponse(res) });
+    this.old = isOld;
+  }
+
+  getScheduleResponse(res: Pagination<ScheduleRecipe>) {
+    this.recipeService.scheduleRecipes = res.objects;
+    this.recipeService.numPage = res.totalPages;
+  }
 
   lol(event: any) {
     event.stopImmediatePropagation();

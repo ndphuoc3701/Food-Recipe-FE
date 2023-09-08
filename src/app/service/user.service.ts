@@ -12,18 +12,10 @@ export class UserService {
   USER_HOST = HOST + 'users';
 
   // userInfo: UserInfo | null = null;
-  userInfo: UserInfo | null = new UserInfo(1, "NDP", "u2", "p", "/assets/user/u2.jpg", 4.3, 3.7);
+  userInfo: UserInfo | null = new UserInfo(2, "NDP", "u2", "p", "/assets/user/u2.jpg", 4.3, 3.7);
 
   constructor(private http: HttpClient, router: Router) { }
 
-  // signUp(userLogin: UserLogin) {
-  //   return this.http.post<UserLogin>(HOST + 'users', userLogin);
-  // }
-
-  // login(userLogin: UserLogin) {
-  //   return this.http.post<UserLogin>(HOST + 'users/login', userLogin);
-  // }
-  // isLoggedInSubject: Subject<UserLogin | null> = new Subject<UserLogin | null>();
   signUp(userInfo: UserInfo) {
     return this.http.post<UserInfo>(this.USER_HOST, userInfo);
   }

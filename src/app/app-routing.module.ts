@@ -31,6 +31,7 @@ const routes: Routes = [
       { path: 'favorite-recipes', component: YourRecipeComponent },
       { path: 'learnt-recipes', component: LearntRecipeComponent },
       { path: 'scheduled-recipes', component: ScheduleRecipeComponent }
+
     ]
   }
   ,
